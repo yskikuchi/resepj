@@ -1,0 +1,102 @@
+<template>
+  <div class="card" :shop="shop" :width="width" :style="('width:' + width +'%')">
+    <img class="card-img" :src="shop.images[0].path" alt="#">
+    <div class="card-content">
+        <p class="card-name" >{{shop.name}}</p>
+        <span>&#035;{{shop.area}}</span>
+        <span>&#035;{{shop.genre}}</span>
+      <div>
+          <NuxtLink :to="{path:'detail/' + shop.id}" class="card-detail">詳しく見る</NuxtLink>
+          <img v-if="$auth.loggedIn && shop.favorites[0]" @click="unfavorite(shop.favorites[0])" class="fav-btn" src="~/assets/images/heart_red.png">
+          <img v-else @click="favorite(shop.id)" class="fav-btn" src="~/assets/images/heart_gray.png">
+          <img v-if="! $auth.loggedIn" class="fav-btn" src="~/assets/images/heart_gray.png">
+      </div>
+    </div>
+  </div>
+</template>
+
+
+<script>
+export default {
+  props:{
+    shop:{
+      type:Object
+    },
+    width:{
+      type:Number
+    }
+  },
+  data(){
+    return{
+      doneGood:0,
+    }
+  },
+  methods:{
+    async favorite(shop_id){
+      if(this.doneGood === 1){
+        return;
+      }
+      this.doneGood = 1;
+      const sendData = {
+      user_id:this.$auth.user.id,
+      shop_id:shop_id,
+      };
+      await this.$axios.post("/api/favorite", sendData);
+      await this.$store.dispatch('getShops');
+      this.$emit('changeFav');
+      this.doneGood = 0;
+    },
+    async unfavorite(e){
+      await this.$axios.delete("/api/favorite/" + e.id);
+      await this.$store.dispatch('getShops');
+      this.$emit('changeFav');
+      },
+  }
+}
+</script>
+
+<style>
+  .card{
+    border-radius:5px;
+    overflow:hidden;
+    background-color:white;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    margin:10px;
+    position:relative;
+  }
+  .card-content{
+    padding:10px 20px;
+  }
+  .card-img{
+    max-width:100%;
+    height:auto;
+  }
+  .card-name{
+    font-weight:bold;
+    font-size:18px;
+    margin: 10px 0;
+  }
+  .card-content span{
+    font-size:15px;
+  }
+  .card-detail{
+    display:inline-block;
+    width:100px;
+    font-size:15px;
+    padding:7px 5px;
+    margin-top:20px;
+    text-align:center;
+    text-decoration:none;
+    background:royalblue;
+    color:white;
+    border-radius:5px;
+  }
+  .fav-btn{
+    width:50px;
+    cursor:pointer;
+    display:inline-block;
+    position:absolute;
+    bottom:0;
+    right:0;
+  }
+</style>
