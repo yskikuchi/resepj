@@ -4,7 +4,8 @@
     <div class="mypage_wrapper">
       <div class="booking-list">
         <h2>予約状況</h2>
-        <BookingInfo v-for="(booking, index) in $store.state.myBookings" :key="booking.id" :booking="booking" :index="index"></BookingInfo>
+        <BookingInfo v-for="(booking, index) in $store.getters.getValidBookings" :key="booking.id" :booking="booking" :index="index"></BookingInfo>
+        <NuxtLink to="/history">過去の予約はこちら</NuxtLink>
       </div>
       <div class="favorite-shops">
         <h2>お気に入り店舗</h2>
@@ -59,5 +60,57 @@ export default {
   .booking-list h2, .favorite-shops h2{
     font-size:25px;
     margin-bottom:20px;
+  }
+
+  .favorite-shop_cards{
+    display:flex;
+    flex-wrap:wrap;
+    position:relative;
+  }
+  .card{
+    border-radius:5px;
+    overflow:hidden;
+    background-color:white;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+    margin:10px 5px;
+    width:45%;
+    position:relative;
+  }
+  .card-content{
+    padding:10px 20px;
+  }
+  .favorite-shops{
+    width:50%;
+  }
+  .card-img{
+    max-width:100%;
+    height:auto;
+  }
+  .card-name{
+    font-weight:bold;
+    font-size:18px;
+    margin: 10px 0;
+  }
+  .card-content span{
+    font-size:15px;
+  }
+  .card-detail{
+    display:inline-block;
+    width:100px;
+    font-size:15px;
+    padding:7px 5px;
+    margin-top:20px;
+    text-align:center;
+    text-decoration:none;
+    background:royalblue;
+    color:white;
+    border-radius:5px;
+  }
+  .fav-btn{
+    width:35px;
+    display:inline-block;
+    position:absolute;
+    bottom:5;
+    right:5;
   }
 </style>

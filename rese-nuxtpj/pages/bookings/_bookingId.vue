@@ -1,55 +1,39 @@
 <template>
-<div>
-  <div class="detail-wrapper">
-    <div class="shop-detail">
-      <p class="shop-name">
-        <span class="back-btn"><NuxtLink to="/">&lt;</NuxtLink></span>
-        {{shop.name}}
-      </p>
-      <img class="shop-detail_img" :src="image" alt="#">
-      <div class="shop-tag">
-        <span>&#035;{{shop.area}}</span>
-        <span>&#035;{{shop.genre}}</span>
-      </div>
-      <p class="shop-intro">{{shop.detail}}</p>
-    </div>
+  <div>
+    <span class="back-btn"><NuxtLink to="/mypage">&lt;</NuxtLink></span>
     <div class="booking-form">
         <p class="booking-ttl">予約</p>
-        <input type="date" name="date" v-model="date" :min="fromDate" :max="untilDate" required>
-        <p class="error">{{errors.date}}</p>
-        <p class="error">{{errors.hasOtherBooking}}</p>
-        <p class="error">{{errors.remainingSeats}}</p>
-        <select name="time" v-model="time" id="time">
+        <input type="date" name="date" :min="fromDate" :max="untilDate" v-model="form.date" required>
+        <select name="time" id="time" v-model="form.time">
           <option v-for="time in timeList" :key="time" :value="time">{{time}}</option>
         </select>
-        <select name="number_of_people" v-model="number" id="number">
+        <select name="number_of_people" id="number" v-model="form.number">
           <option v-for="number in numberList" :key="number" :value="number">{{number}}</option>
         </select>
-        <table class="booking-table">
+        <p class="error">{{errors.hasOtherBooking}}</p>
+        <p class="error">{{errors.remainingSeats}}</p>
+        <p class="current-booking">現在の予約日時</p>
+        <table class="current-booking-status">
           <tr>
             <th>Shop</th>
-            <td>{{shop.name}}</td>
+            <td>{{shop}}</td>
           </tr>
           <tr>
             <th>Date</th>
-            <td>{{date}}</td>
+            <td>{{bookedDate}}</td>
           </tr>
           <tr>
             <th>Time</th>
-            <td>{{time}}</td>
+            <td>{{bookedTime|formatTime}}</td>
           </tr>
           <tr>
             <th>Number</th>
-            <td>{{number}}</td>
+            <td>{{bookedNumber}}人</td>
           </tr>
         </table>
-        <button class="booking-btn" @click="book">予約する</button>
+        <button class="booking-change-btn" @click="changeBooking">予約を変更する</button>
     </div>
   </div>
-  <div>
-    <Review class="review-wrapper" v-for="review in reviews" :key="review.id" :review="review"></Review>
-  </div>
-</div>
 </template>
 
 <script>
@@ -62,23 +46,30 @@ export default {
         hasOtherBooking:"",
         remainingSeats:"",
       },
-      shop:"",
-      image:"",
-      reviews:"",
+      form:{
+        date:"",
+        time:"",
+        number:"",
+      },
       timeList:[],
       numberList:[],
       fromDate:"",
       untilDate:"",
-      date:"",
-      time:"11:00",
-      number:"1人",
+      booking:"",
+      shop:"",
+      bookedDate:"",
+      bookedTime:"",
+      bookedNumber:"",
     }
   },
-  async created(){
-    const resData = await this.$axios.get('/api/shops/' + this.$route.params.shopId);
-    this.shop = resData.data.data;
-    this.image = this.shop.images[0].path;
-    this.reviews = this.shop.reviews;
+  async mounted(){
+    const resData = await this.$axios.get('/api/booking/' + this.$route.params.bookingId);
+    const bookingData = resData.data.data;
+    this.booking = bookingData;
+    this.shop = this.booking.shop.name;
+    this.bookedDate = bookingData.date;
+    this.bookedTime = bookingData.time;
+    this.bookedNumber = bookingData.number_of_people;
 
     //日付の選択肢を翌日〜１ヶ月後に制限
     const tomorrow = new Date();
@@ -95,27 +86,31 @@ export default {
       let time2 = i + ':30';
       this.timeList.push(time2);
       }
-    for(let i = 1; i <= this.shop.number_of_seats ;i++){
+    for(let i = 1; i <= this.booking.shop.number_of_seats ;i++){
       let number = i + '人';
       this.numberList.push(number);
     }
   },
+  filters:{
+    formatTime(time){
+      return time.slice(0, -3);
+    }
+  },
   methods:{
-    async book(){
+    async changeBooking(){
       try{
-        Object.keys(this.errors).forEach((key) =>{
-          this.errors[key] = "";
-        })
-        const sendData={
-          user_id:this.$auth.user.id,
-          shop_id:this.shop.id,
-          date:this.date,
-          time:this.time,
-          number_of_people:this.number.slice(0, -1),
-        };
-        if(confirm('この内容で予約してよろしいですか？')){
-          await this.$axios.post("/api/booking",sendData);
-          this.$router.push('/done');
+        if(confirm('この内容で変更してよろしいですか？')){
+          Object.keys(this.errors).forEach((key) =>{
+            this.errors[key] = "";
+          })
+          const sendData={
+            shop_id:this.booking.shop.id,
+            date:this.form.date,
+            time:this.form.time,
+            number_of_people:this.form.number.slice(0, -1),
+          };
+          await this.$axios.put("/api/booking/" + this.$route.params.bookingId, sendData);
+          this.$router.push('/mypage');
         }
       }catch(e){
         console.log(e.response.data.errors);
@@ -133,35 +128,18 @@ export default {
   .detail-wrapper{
     display:flex;
     justify-content:space-around;
-    margin-bottom:50px;
-  }
-  .shop-detail{
-    width:40%;
   }
   .back-btn{
     display:inline-block;
     width:20px;
+    font-size: 30px;
+    padding: 5px;
     background-color:white;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
 
   }
   .back-btn a{
     text-decoration:none;
-  }
-  .shop-name{
-    font-size:25px;
-    margin-bottom:20px;
-  }
-  .shop-detail_img{
-    width:100%;
-    height:auto;
-  }
-  .shop-tag{
-    margin:10px 1px 20px 5px;
-  }
-  .shop-intro{
-    font-size: 17px;
-    line-height: 1.5rem;
   }
   .booking-form{
     width:40%;
@@ -187,43 +165,36 @@ export default {
     font-size:25px;
     margin:20px 0;
   }
-  .booking-table{
+  .current-booking{
+    margin-top:30px;
+    font-size: 20px;
+  }
+  .current-booking-status{
     color:white;
     background-color:#75A9FF;
     width:80%;
-    margin:50px auto;
+    margin:20px auto;
   }
-  .booking-table th, .booking-table td{
+  .current-booking-status th, .current-booking-status td{
     padding:10px;
     font-size: 18px;
   }
-  .booking-table th{
+  .current-booking-status th{
     width:30%;
     text-align: left;
   }
-  .booking-btn{
+  .booking-change-btn{
     width: 100%;
     height:50px;
+    font-size:20px;
     border:none;
     background-color:blue;
     color:white;
-    position:absolute;
-    bottom:0;
-    left:0;
     cursor:pointer;
   }
   .error{
     font-size:15px;
     color:rgb(250, 15, 66);
     margin-bottom:5px;
-  }
-  .review-wrapper{
-    width:90%;
-    margin:0 auto;
-    border:1px solid rgb(173, 172, 172);
-    border-top:none;
-  }
-  .review-wrapper:first-of-type{
-    border-top:1px solid rgb(173, 172, 172);
   }
 </style>

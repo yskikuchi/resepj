@@ -15,6 +15,38 @@ export const getters = {
   getCurrentShop: state => (id) => {
     const currentShop = state.shops.find(e => e.id == id);
     return currentShop;
+  },
+  getValidBookings: state => {
+    const today = new Date();
+    const time = new Date();
+    const hours = time.getHours() - 1;
+    const minutes = time.getMinutes();
+    const formatMinutes = ('0' + minutes).slice(-2);
+    const nowTime = hours + ":" + formatMinutes;
+    const formatDate = today.toISOString().slice(0, 10);
+    return state.myBookings.filter(e => {
+      if ( (e.date == formatDate) && (e.time >= nowTime) ) {
+        return true;
+      } else if(e.date > formatDate){
+        return true;
+      }
+    });
+  },
+  getPastBookings: state => {
+    const today = new Date();
+    const time = new Date();
+    const hours = time.getHours() - 1;
+    const minutes = time.getMinutes();
+    const formatMinutes = ('0' + minutes).slice(-2);
+    const nowTime = hours + ":" + formatMinutes;
+    const formatDate = today.toISOString().slice(0, 10);
+    return state.myBookings.filter(e => {
+      if ( (e.date == formatDate) && (e.time < nowTime) ) {
+        return true;
+      } else if(e.date < formatDate){
+        return true;
+      }
+    });
   }
 }
 

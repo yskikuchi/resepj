@@ -23,13 +23,13 @@ class BookingController extends Controller
         $time = date('H:i:s',strtotime('1hour'));
         $bookings = Booking::with('shop:id,name')
         ->where('user_id', $user_id)
-        ->where(function($query) use($today,$time){
-            $query->where([
-                ['date', '=', $today],
-                ['time', '>', $time],
-                ])
-                ->orWhere('date', '>', $today);
-        })
+        // ->where(function($query) use($today,$time){
+        //     $query->where([
+        //         ['date', '=', $today],
+        //         ['time', '>', $time],
+        //         ])
+        //         ->orWhere('date', '>', $today);
+        // })
         ->orderBy('date','asc')
         ->orderBy('time','asc')
         ->get();
@@ -60,7 +60,12 @@ class BookingController extends Controller
      */
     public function show($id)
     {
-        //
+        $booking = Booking::with('shop')
+        ->where('id',$id)
+        ->first();
+        return response()->json([
+            'data' => $booking
+        ], 200);
     }
 
     /**
@@ -70,9 +75,23 @@ class BookingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BookingRequest $request, $id)
     {
-        //
+        $update=[
+            'date' => $request -> date,
+            'time' => $request -> time,
+            'number_of_people' => $request -> number_of_people,
+        ];
+        $item = Booking::where('id', $id)->update($update);
+        if ($item) {
+            return response()->json([
+                'message' => 'Updated successfully',
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Not found',
+            ], 404);
+        }
     }
 
     /**

@@ -18,13 +18,6 @@ class FavoriteController extends Controller
      */
     public function index()
     {
-        // $user_id = Auth::id();
-        // $favorites = Favorite::with('shop','shop.images')
-        // ->where('user_id', $user_id)
-        // ->get();
-        // return response()->json([
-        //     'data' => $favorites
-        // ], 200);
         $id = Auth::id();
         $shops = Shop::with('favorites')
             ->whereHas('favorites', function($q) use($id){

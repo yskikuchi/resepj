@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Shop;
-use App\Models\Favorite;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Review;
 
-class ShopController extends Controller
+class ReviewController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,14 +14,11 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $id = Auth::id();
-        $shops = Shop::with(['favorites' => function($q) use($id){
-                $q -> where('user_id',$id);
-            }])
-            ->with('images')
-            ->get();
+        $reviews = Review::with('shop')
+        ->where('shop_id', 3)
+        ->get();
         return response()->json([
-            'data' => $shops,
+            'data' => $reviews,
         ], 200);
     }
 
@@ -35,7 +30,10 @@ class ShopController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = Review::create($request->all());
+        return response()->json([
+            'data' => $data
+        ], 201);
     }
 
     /**
@@ -46,12 +44,7 @@ class ShopController extends Controller
      */
     public function show($id)
     {
-        $shop = Shop::with('images','reviews.user')
-        ->where('id',$id)
-        ->first();
-        return response()->json([
-            'data' => $shop
-        ], 200);
+        //
     }
 
     /**

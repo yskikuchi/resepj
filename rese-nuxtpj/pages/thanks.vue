@@ -25,7 +25,7 @@
     align-items:center;
   }
   .thanks-wrapper p{
-    font-size:25px;
+    font-size:20px;
     margin-bottom:20px;
   }
   .thanks-wrapper a{
