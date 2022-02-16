@@ -46,8 +46,10 @@
         <button class="booking-btn" @click="book">予約する</button>
     </div>
   </div>
-  <div>
-    <Review class="review-wrapper" v-for="review in reviews" :key="review.id" :review="review"></Review>
+  <div class="review-wrapper">
+    <h2>口コミ</h2>
+    <p class="review-no-exist" v-if="!reviews.length">このお店の口コミはまだありません。</p>
+    <Review class="review-item" v-for="review in reviews" :key="review.id" :review="review"></Review>
   </div>
 </div>
 </template>
@@ -218,12 +220,23 @@ export default {
     margin-bottom:5px;
   }
   .review-wrapper{
+    margin:0 auto;
+    width:90%;
+  }
+  .review-wrapper h2{
+    font-size: 30px;
+    margin:20px 0;
+  }
+  .review-no-exist{
+    font-size:20px;
+  }
+  .review-item{
     width:90%;
     margin:0 auto;
     border:1px solid rgb(173, 172, 172);
     border-top:none;
   }
-  .review-wrapper:first-of-type{
+  .review-item:first-of-type{
     border-top:1px solid rgb(173, 172, 172);
   }
 </style>

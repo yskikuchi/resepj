@@ -4,8 +4,8 @@
     <div class="mypage_wrapper">
       <div class="booking-list">
         <h2>予約状況</h2>
+        <NuxtLink class="past-booking" to="/history">( &gt;過去の予約はこちら )</NuxtLink>
         <BookingInfo v-for="(booking, index) in $store.getters.getValidBookings" :key="booking.id" :booking="booking" :index="index"></BookingInfo>
-        <NuxtLink to="/history">過去の予約はこちら</NuxtLink>
       </div>
       <div class="favorite-shops">
         <h2>お気に入り店舗</h2>
@@ -52,6 +52,11 @@ export default {
     position:absolute;
     top:5%;
     left:50%;
+  }
+  .past-booking{
+    margin-bottom: 10px;
+    display: block;
+    color:black;
   }
   .booking-list{
     width:50%;

@@ -33,7 +33,7 @@ class BookingRequest extends FormRequest
         $endDate = date('Y-m-d', strtotime('1month'));
         return [
             'date'=> 'required|date|after_or_equal:'.$startDate.'|before_or_equal:'.$endDate,
-            'number_of_people' => 'required',
+            'number_of_people' => 'required|max:100',
             //同じ時間帯（前後３０分）に別の予約が入っていないかどうかを確認
             'hasOtherBooking' =>[
                 new BookingRule(
@@ -42,6 +42,7 @@ class BookingRequest extends FormRequest
                     $this->time,
                 )
             ],
+            //席数に空きがあるかを確認
             'remainingSeats' =>[
                 new RemainingSeats(
                     $this->shop_id,
