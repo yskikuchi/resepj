@@ -51,13 +51,13 @@ rese-nuxtpj直下に.envを作成し、以下を記述
 API_URL=http://localhost:8000
 ```
 
-データベースの設定後
+### 3.データベースの設定後
 ```
 php artisan migrate
 php artisan db:seed
 ```
 
-laravel & Nuxtを立ち上げる
+### 4.laravel & Nuxtを立ち上げる
 ```
 php artisan serve
 yarn dev or npm run dev
