@@ -20,13 +20,47 @@ Reseグループの飲食店予約サービスです。
 * laravel 8.81.0
 * Nodejs v14.18.0
 * Nuxt v2.15.8
+* MySQL 5.7.34
 
 ## インストール
 
 ```
-git clone https://github.com/yskikuchi/resepj-api.git
+git clone https://github.com/yskikuchi/resepj.git
+cd resepj
+```
+### 1. laravel
+```
+cd resepj-api
+composer install
+$ cp .env.example .env
+
+$ php artisan key:generate
+```
+.envに以下を追加
+```
+SESSION_DOMAIN=localhost
 ```
 
+### 2. Nuxt
 ```
-composer install
+cd rese-nuxtpj
+yarn add or npm install 
 ```
+rese-nuxtpj直下に.envを作成し、以下を記述
+```
+API_URL=http://localhost:8000
+```
+
+データベースの設定後
+```
+php artisan migrate
+php artisan db:seed
+```
+
+laravel & Nuxtを立ち上げる
+```
+php artisan serve
+yarn dev or npm run dev
+```
+
+
