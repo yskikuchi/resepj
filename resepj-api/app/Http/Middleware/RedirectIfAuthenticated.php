@@ -20,9 +20,15 @@ class RedirectIfAuthenticated
     public function handle(Request $request, Closure $next, ...$guards)
     {
         $guards = empty($guards) ? [null] : $guards;
-
+        $path = $request->server('PATH_INFO');
         foreach ($guards as $guard) {
+            if(Auth::guard('admin')->check()){
+                if($path != '/admin/logout'){
+                    return redirect('/admin/dashboard');
+                }
+            }
             if (Auth::guard($guard)->check()) {
+
                 // return redirect(RouteServiceProvider::HOME);
                 if ($request->expectsJson()) {
                     return response()->json(Auth::user(), 200);

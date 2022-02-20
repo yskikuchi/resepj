@@ -15,12 +15,12 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $reviews = Review::with('shop')
-        ->where('shop_id', 3)
-        ->get();
-        return response()->json([
-            'data' => $reviews,
-        ], 200);
+        // $reviews = Review::with('shop')
+        // ->where('shop_id', 3)
+        // ->get();
+        // return response()->json([
+        //     'data' => $reviews,
+        // ], 200);
     }
 
     /**

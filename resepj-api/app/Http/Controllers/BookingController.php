@@ -19,8 +19,8 @@ class BookingController extends Controller
     public function index()
     {
         $user_id = Auth::id();
-        $today = date('Y-m-d');
-        $time = date('H:i:s',strtotime('1hour'));
+        // $today = date('Y-m-d');
+        // $time = date('H:i:s',strtotime('1hour'));
         $bookings = Booking::with('shop:id,name')
         ->where('user_id', $user_id)
         // ->where(function($query) use($today,$time){
