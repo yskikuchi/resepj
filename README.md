@@ -21,4 +21,12 @@ Reseグループの飲食店予約サービスです。
 * Nodejs v14.18.0
 * Nuxt v2.15.8
 
-## 
+## インストール
+
+```
+git clone https://github.com/yskikuchi/resepj-api.git
+```
+
+```
+composer install
+```
