@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Shop;
 use App\Models\User;
-
+use App\Models\Review;
 
 
 class ReviewSeeder extends Seeder

@@ -28,11 +28,12 @@ class Booking extends Model
     public function shop(){
         return $this -> belongsTo(Shop::class);
     }
-    public function scopeWhereHasBooking($query, $date, $time)
+    public function scopeWhereHasBooking($query, $date, $time, $id)
     {
         $from_at = date('H:i', strtotime('-30 minute'. $time));
         $until_at = date('H:i',strtotime('+30 minute'. $time));
-        $query->where('date','=',$date)
+        $query->where('id','!=',$id) //変更対象の予約を除外
+        ->where('date','=',$date)
         ->where('time','>=', $from_at)
         ->where('time','<=', $until_at)
         ->get();

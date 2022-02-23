@@ -11,6 +11,7 @@ export default{
   methods:{
     async resend(){
       await this.$axios.post('/email/verification-notification');
+      alert('メールを送信しました。ご確認ください。')
     }
   }
 }

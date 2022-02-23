@@ -108,6 +108,7 @@ export default {
             date:this.form.date,
             time:this.form.time,
             number_of_people:this.form.number.slice(0, -1),
+            booking_id:this.booking.id,
           };
           await this.$axios.put("/api/booking/" + this.$route.params.bookingId, sendData);
           this.$router.push('/mypage');
@@ -201,6 +202,9 @@ export default {
     margin-bottom:5px;
   }
   @media screen and (max-width: 768px) {
+    .booking-form{
+      width:90%;
+    }
     .current-booking-status{
       margin:10px auto 50px;
     }

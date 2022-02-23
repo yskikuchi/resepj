@@ -40,6 +40,7 @@ class BookingRequest extends FormRequest
                     $user_id,
                     $this->date,
                     $this->time,
+                    $this->booking_id,
                 )
             ],
             //席数に空きがあるかを確認

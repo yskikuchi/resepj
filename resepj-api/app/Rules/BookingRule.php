@@ -18,11 +18,12 @@ class BookingRule implements ImplicitRule
      *
      * @return void
      */
-    public function __construct($user_id, $date, $time)
+    public function __construct($user_id, $date, $time, $booking_id)
     {
         $this->user_id = $user_id;
         $this->date = $date;
         $this->time = $time;
+        $this->booking_id = $booking_id;
     }
 
     /**
@@ -35,7 +36,7 @@ class BookingRule implements ImplicitRule
     public function passes($attribute, $value)
     {
         return Booking::where('user_id', $this->user_id)
-        ->whereHasBooking($this->date, $this->time)
+        ->whereHasBooking($this->date, $this->time, $this->booking_id)
         ->doesntExist();
     }
 
