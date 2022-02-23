@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Image;
 use App\Models\Favorite;
+use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 
 class Shop extends Model
@@ -19,5 +20,8 @@ class Shop extends Model
     }
     public function reviews(){
         return $this -> hasMany(Review::class);
+    }
+    public function admin(){
+        return $this -> hasMany(Admin::class);
     }
 }

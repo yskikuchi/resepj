@@ -54,7 +54,7 @@ export default {
 
 <style>
   .booking_card{
-    width:60%;
+    width:55%;
     color:white;
     border-radius:5px;
     background-color:royalblue;
@@ -68,7 +68,7 @@ export default {
   }
   .booking_card table{
     color:white;
-    font-size:20px;
+    font-size:1em;
     padding:10px;
   }
   .booking_card th{
@@ -77,14 +77,20 @@ export default {
   }
 
   .close-btn{
-    height:23px;
+    height:15%;
     position:absolute;
     top:10%;
     right:5%;
   }
   .change-booking{
-    display: block;
+    display: inline-block;
     color: white;
     padding:10px;
   }
+  @media screen and (max-width: 768px) {
+    .booking_card{
+      width:90%;
+    }
+  }
+
 </style>

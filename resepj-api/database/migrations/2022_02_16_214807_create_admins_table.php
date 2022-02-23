@@ -17,7 +17,8 @@ class CreateAdminsTable extends Migration
             $table->id();
             $table->string('name',20);
             $table->string('email',50)->unique();
-            // $table->string('tel',20);
+            $table->tinyInteger('role')->default(2); //1:管理者、2:店舗代表者
+            $table->foreignId('shop_id')->nullable()->constrained();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

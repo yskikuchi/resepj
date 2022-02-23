@@ -28,7 +28,7 @@ export default {
   auth:false,
   data(){
     return{
-        width:22,
+        width:23,
         selectedArea:"All area",
         selectedGenre:"All genre",
         searchWord:"",
@@ -194,6 +194,7 @@ export default {
 </script>
 
 <style>
+
   .search-wrapper{
     width:90%;
     text-align:right;
@@ -214,5 +215,14 @@ export default {
   .card-wrapper{
     display:flex;
     flex-wrap:wrap;
+    justify-content: space-between;
+  }
+  @media screen and (max-width: 768px) {
+    .search-select, .search-input{
+    height:30px;
+    }
+    .search-select{
+      margin-bottom:7px;
+    }
   }
 </style>

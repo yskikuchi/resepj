@@ -3,10 +3,10 @@
     <img class="card-img" :src="shop.images[0].path" alt="#">
     <div class="card-content">
         <p class="card-name" >{{shop.name}}</p>
-        <span>&#035;{{shop.area}}</span>
-        <span>&#035;{{shop.genre}}</span>
+        <span class="card-tag">&#035;{{shop.area}}</span>
+        <span class="card-tag">&#035;{{shop.genre}}</span>
       <div>
-          <NuxtLink :to="{path:'detail/' + shop.id}" class="card-detail">詳しく見る</NuxtLink>
+          <NuxtLink :to="{path:'detail/' + shop.id}" class="card-detail-btn">詳しく見る</NuxtLink>
           <img v-if="$auth.loggedIn && shop.favorites[0]" @click="unfavorite(shop.favorites[0])" class="fav-btn" src="~/assets/images/heart_red.png">
           <img v-else @click="favorite(shop.id)" class="fav-btn" src="~/assets/images/heart_gray.png">
           <img v-if="! $auth.loggedIn" class="fav-btn" src="~/assets/images/heart_gray.png">
@@ -61,7 +61,7 @@ export default {
     overflow:hidden;
     background-color:white;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-    margin:10px;
+    margin:10px 0px;
     position:relative;
   }
   .card-content{
@@ -73,17 +73,17 @@ export default {
   }
   .card-name{
     font-weight:bold;
-    font-size:18px;
+    font-size:1em;
     margin: 10px 0;
   }
-  .card-content span{
-    font-size:15px;
+  .card-tag{
+    font-size:1em;
   }
-  .card-detail{
+  .card-detail-btn{
     display:inline-block;
-    width:100px;
-    font-size:15px;
-    padding:7px 5px;
+    width:60%;
+    font-size:1em;
+    padding:7px 0px;
     margin-top:20px;
     text-align:center;
     text-decoration:none;
@@ -92,11 +92,33 @@ export default {
     border-radius:5px;
   }
   .fav-btn{
-    width:50px;
+    width:20%;
     cursor:pointer;
     display:inline-block;
     position:absolute;
     bottom:0;
     right:0;
+  }
+    @media screen and (max-width: 768px) {
+    .card{
+      width: 46%!important;
+      margin:5px 0;
+    }
+    .card-content{
+      padding:7px 14px;
+    }
+    .card-name{
+      margin:5px 0;
+    }
+    .card-tag{
+    font-size:10px;
+    }
+    .card-detail-btn{
+      margin-top:5px;
+      font-size:10px;
+    }
+    .fav-btn{
+      width:25%;
+    }
   }
 </style>

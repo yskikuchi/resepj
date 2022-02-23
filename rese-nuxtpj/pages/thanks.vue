@@ -12,7 +12,7 @@
 </script>
 <style>
   .thanks-wrapper{
-    width:40%;
+    width:50%;
     height:250px;
     margin:0 auto;
     text-align:center;
@@ -25,7 +25,7 @@
     align-items:center;
   }
   .thanks-wrapper p{
-    font-size:20px;
+    font-size:1.2em;
     margin-bottom:20px;
   }
   .thanks-wrapper a{
@@ -36,5 +36,10 @@
     color:white;
     border-radius:10px;
     padding:5px 0 ;
+  }
+  @media screen and (max-width: 768px) {
+    .thanks-wrapper{
+      width:100%;
+    }
   }
 </style>

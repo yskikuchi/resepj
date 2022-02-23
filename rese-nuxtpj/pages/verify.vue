@@ -31,7 +31,7 @@ export default{
     align-items:center;
   }
   .verified-wrapper p{
-    font-size:22px;
+    font-size:1em;
     margin-bottom:20px;
   }
   .verified-wrapper button{
@@ -42,6 +42,12 @@ export default{
     color:white;
     border-radius:10px;
     padding:5px 0 ;
+    border: none;
     cursor:pointer;
+  }
+  @media screen and (max-width: 768px) {
+    .verified-wrapper{
+      width:90%;
+    }
   }
 </style>

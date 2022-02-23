@@ -7,7 +7,7 @@
 
 <style>
   .posted-wrapper{
-    width:40%;
+    width:45%;
     height:250px;
     margin:0 auto;
     text-align:center;
@@ -20,7 +20,7 @@
     align-items:center;
   }
   .posted-wrapper p{
-    font-size:25px;
+    font-size:1em;
     margin-bottom:20px;
   }
   .posted-wrapper a{
@@ -31,5 +31,10 @@
     color:white;
     border-radius:10px;
     padding:5px 0 ;
+  }
+  @media screen and (max-width: 768px) {
+    .posted-wrapper{
+      width:90%;
+    }
   }
 </style>

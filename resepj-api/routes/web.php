@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\DirectorController;
-
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminShopController;
+use App\Http\Controllers\AdminBookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,9 +33,11 @@ Route::prefix('admin')->group(function(){
     Route::post('login',[LoginController::class,'store']);
 
     Route::middleware('auth:admin')->group(function(){
-        Route::get('dashboard',[AdminDashboardController::class,'index'])->name('admin.dashboard');
+        Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard');
         Route::post('logout',[LoginController::class, 'destroy'])->name('admin.logout');
     });
 });
-Route::post('/director',[DirectorController::class, 'store']);
-
+Route::post('/manager',[AdminController::class, 'store']);
+Route::get('/admin/shop', [AdminShopController::class, 'index']);
+Route::post('/admin/shop', [AdminShopController::class, 'update']);
+Route::get('/admin/booking', [AdminBookingController::class, 'index']);

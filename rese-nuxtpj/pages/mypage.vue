@@ -21,7 +21,7 @@
 export default {
   data(){
     return{
-      width:45,
+      width:47,
       shops:[],
     }
   },
@@ -72,50 +72,24 @@ export default {
     flex-wrap:wrap;
     position:relative;
   }
-  .card{
-    border-radius:5px;
-    overflow:hidden;
-    background-color:white;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
-    margin:10px 5px;
-    width:45%;
-    position:relative;
-  }
-  .card-content{
-    padding:10px 20px;
-  }
   .favorite-shops{
     width:50%;
   }
-  .card-img{
-    max-width:100%;
-    height:auto;
-  }
-  .card-name{
-    font-weight:bold;
-    font-size:18px;
-    margin: 10px 0;
-  }
-  .card-content span{
-    font-size:15px;
-  }
-  .card-detail{
-    display:inline-block;
-    width:100px;
-    font-size:15px;
-    padding:7px 5px;
-    margin-top:20px;
-    text-align:center;
-    text-decoration:none;
-    background:royalblue;
-    color:white;
-    border-radius:5px;
-  }
-  .fav-btn{
-    width:35px;
-    display:inline-block;
-    position:absolute;
-    bottom:5;
-    right:5;
+  @media screen and (max-width: 768px) {
+    .user-name{
+      font-size:20px;
+      right:0;
+    }
+    .mypage_wrapper{
+      flex-direction: column;
+    }
+    .booking-list{
+      width:90%;
+    }
+    .favorite-shops{
+      margin:0 auto;
+      width:95%;
+    }
+
   }
 </style>

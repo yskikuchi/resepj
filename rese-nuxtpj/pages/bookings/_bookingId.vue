@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span class="back-btn"><NuxtLink to="/mypage">&lt;</NuxtLink></span>
+    <span class="back-btn"><a @click="$router.back()">&lt;</a></span>
     <div class="booking-form">
         <p class="booking-ttl">予約</p>
         <input type="date" name="date" :min="fromDate" :max="untilDate" v-model="form.date" required>
@@ -167,17 +167,17 @@ export default {
   }
   .current-booking{
     margin-top:30px;
-    font-size: 20px;
+    font-size: 1em;
   }
   .current-booking-status{
     color:white;
     background-color:#75A9FF;
     width:80%;
-    margin:20px auto;
+    margin:20px auto 60px;
   }
   .current-booking-status th, .current-booking-status td{
     padding:10px;
-    font-size: 18px;
+    font-size: 1em;
   }
   .current-booking-status th{
     width:30%;
@@ -185,16 +185,27 @@ export default {
   }
   .booking-change-btn{
     width: 100%;
-    height:50px;
-    font-size:20px;
+    height:40px;
+    font-size:1em;
     border:none;
     background-color:blue;
     color:white;
     cursor:pointer;
+    position:absolute;
+    bottom:0;
+    left:0;
   }
   .error{
     font-size:15px;
     color:rgb(250, 15, 66);
     margin-bottom:5px;
+  }
+  @media screen and (max-width: 768px) {
+    .current-booking-status{
+      margin:10px auto 50px;
+    }
+    .booking-change-btn{
+      height:30px;
+    }
   }
 </style>

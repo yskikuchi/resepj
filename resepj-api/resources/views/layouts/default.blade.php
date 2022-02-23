@@ -11,11 +11,19 @@
 
 </style>
 <body>
-  <div class="container">
-    <h1>@yield('title')</h1>
-    <div>
-      @yield('content')
-    </div>
-  </div>
+
+  @yield('content')
+
 </body>
 </html>
+
+<style>
+  .admin-ttl{
+    font-size:30px;
+    margin:10px;
+  }
+  body{
+    width:80%;
+    margin:0 auto;
+  }
+</style>

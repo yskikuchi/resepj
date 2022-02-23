@@ -84,7 +84,7 @@ export default {
     }
     .register-wrapper{
         margin:0 auto;
-        width:30%;
+        width:45%;
         background:white;
         border-radius:10px;
         box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
@@ -115,6 +115,7 @@ export default {
     }
     .to-login{
         text-align:center;
+        margin-top:10px;
     }
     .to-login a{
         color:royalblue;
@@ -124,4 +125,9 @@ export default {
         color:red;
         margin-bottom:5px;
     }
+  @media screen and (max-width: 768px) {
+    .register-wrapper{
+      width:90%;
+    }
+  }
 </style>

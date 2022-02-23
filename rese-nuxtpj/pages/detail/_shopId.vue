@@ -3,7 +3,7 @@
   <div class="detail-wrapper">
     <div class="shop-detail">
       <p class="shop-name">
-        <span class="back-btn"><NuxtLink to="/">&lt;</NuxtLink></span>
+        <span class="back-btn"><a @click="$router.back()">&lt;</a></span>
         {{shop.name}}
       </p>
       <img class="shop-detail_img" :src="image" alt="#">
@@ -162,7 +162,7 @@ export default {
     margin:10px 1px 20px 5px;
   }
   .shop-intro{
-    font-size: 17px;
+    font-size: 1em;
     line-height: 1.5rem;
   }
   .booking-form{
@@ -193,11 +193,11 @@ export default {
     color:white;
     background-color:#75A9FF;
     width:80%;
-    margin:50px auto;
+    margin:50px auto 70px;
   }
   .booking-table th, .booking-table td{
     padding:10px;
-    font-size: 18px;
+    font-size: 1em;
   }
   .booking-table th{
     width:30%;
@@ -228,7 +228,7 @@ export default {
     margin:20px 0;
   }
   .review-no-exist{
-    font-size:20px;
+    font-size:1em;
   }
   .review-item{
     width:90%;
@@ -238,5 +238,24 @@ export default {
   }
   .review-item:first-of-type{
     border-top:1px solid rgb(173, 172, 172);
+  }
+  @media screen and (max-width: 768px) {
+    .detail-wrapper{
+      flex-direction: column;
+    }
+    .shop-detail{
+      width:90%;
+      margin-bottom: 10px;
+    }
+    .booking-form{
+      width:90%;
+    }
+    .booking-table{
+    width:80%;
+    margin:30px auto 50px;
+    }
+    .booking-btn{
+    height:30px;
+    }
   }
 </style>

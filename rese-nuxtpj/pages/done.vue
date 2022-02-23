@@ -17,7 +17,7 @@ export default {
 
 <style>
   .done-wrapper{
-    width:40%;
+    width:50%;
     height:250px;
     margin:0 auto;
     text-align:center;
@@ -30,7 +30,7 @@ export default {
     align-items:center;
   }
   .done-wrapper p{
-    font-size:25px;
+    font-size:1.2em;
     margin-bottom:20px;
   }
   .done-wrapper a{
@@ -41,5 +41,10 @@ export default {
     color:white;
     border-radius:10px;
     padding:5px 0 ;
+  }
+  @media screen and (max-width: 768px) {
+    .done-wrapper{
+      width:100%;
+    }
   }
 </style>
