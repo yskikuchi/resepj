@@ -1,6 +1,9 @@
 <body>
   <div class="login-wrapper">
     <p class="login-ttl">管理者ログインフォーム</p>
+    @error('email')
+      <p class="error">メールアドレスまたはパスワードに誤りがあります</p>
+    @enderror
     <form method="POST" action="/admin/login" class="login-form">
         @csrf
         <div>

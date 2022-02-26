@@ -92,7 +92,7 @@ export default {
     border-radius:5px;
   }
   .fav-btn{
-    width:20%;
+    width:18%;
     cursor:pointer;
     display:inline-block;
     position:absolute;
@@ -101,7 +101,7 @@ export default {
   }
     @media screen and (max-width: 768px) {
     .card{
-      width: 46%!important;
+      width: 49%!important;
       margin:5px 0;
     }
     .card-content{
@@ -118,7 +118,7 @@ export default {
       font-size:10px;
     }
     .fav-btn{
-      width:25%;
+      width:22%;
     }
   }
 </style>

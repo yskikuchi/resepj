@@ -110,7 +110,7 @@ export default {
     margin:10px 1px 20px 5px;
   }
   .shop-intro{
-    font-size: 17px;
+    font-size: 1em;
     line-height: 1.5rem;
   }
   .review-form{
@@ -138,11 +138,11 @@ export default {
   .review-comment{
     width:90%;
     height: 50%;
-    margin-bottom:10px;
+    margin-bottom:50px;
   }
   .comment-btn{
     width: 100%;
-    height:50px;
+    height:40px;
     border:none;
     background-color:blue;
     color:white;
@@ -155,5 +155,13 @@ export default {
     font-size:15px;
     color:rgb(250, 15, 66);
     margin-bottom:5px;
+  }
+  @media screen and (max-width: 768px) {
+    .detail-wrapper{
+      flex-direction: column;
+    }
+    .shop-detail, .review-form{
+      width:90%;
+    }
   }
 </style>

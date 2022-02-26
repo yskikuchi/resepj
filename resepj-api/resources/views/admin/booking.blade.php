@@ -10,7 +10,8 @@
   @else
   <table class="admin-booking-list">
     <tr>
-      <th>日にち</th>
+      <th>ステータス</th>
+      <th>日付</th>
       <th>時間</th>
       <th>人数</th>
       <th>予約者名</th>
@@ -19,6 +20,11 @@
     </tr>
     @foreach($bookings as $booking)
     <tr>
+      @if($booking->deleted_at)
+      <td>キャンセル</td>
+      @else
+      <td></td>
+      @endif
       <td>{{$booking->date}}</td>
       <td>{{$booking->time}}</td>
       <td>{{$booking->number_of_people}}</td>
@@ -29,6 +35,7 @@
     @endforeach
   </table>
   @endif
+  <a href="/admin/dashboard">管理画面トップへ</a>
 @endsection
 
 <script>

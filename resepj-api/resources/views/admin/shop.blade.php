@@ -24,5 +24,6 @@
   </table>
   <button>変更する</button>
 </form>
+<a href="/admin/dashboard">管理画面トップへ</a>
 
 @endsection

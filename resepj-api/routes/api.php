@@ -7,6 +7,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +28,6 @@ Route::apiResource('shops', ShopController::class);
 Route::apiResource('favorite', FavoriteController::class);
 Route::apiResource('booking', BookingController::class);
 Route::apiResource('review', ReviewController::class);
+Route::apiResource('images', ImageController::class);
 
 // Route::get('/review/{shop_id}', [ReviewController::class, '']);

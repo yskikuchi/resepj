@@ -56,12 +56,12 @@ export default {
     position:relative;
   }
   .booking_card span{
-    font-size:20px;
+    font-size:1em;
     line-height:1.5em;
   }
   .booking_card table{
     color:white;
-    font-size:20px;
+    font-size:1em;
     padding:10px;
   }
   .booking_card th{
@@ -72,5 +72,10 @@ export default {
     display: block;
     color: white;
     padding:10px;
+  }
+  @media screen and (max-width: 768px) {
+    .booking_card{
+      width:90%;
+    }
   }
 </style>

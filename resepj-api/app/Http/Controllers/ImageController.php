@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Shop;
-use App\Models\Favorite;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Image;
+use Illuminate\Support\Facades\Storage;
 
-class ShopController extends Controller
+
+class ImageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,17 +16,7 @@ class ShopController extends Controller
      */
     public function index()
     {
-        $id = Auth::id();
-        $shops = Shop::with(['favorites' => function($q) use($id){
-                $q -> where('user_id',$id);
-            }])
-            ->with(['images' => function($q){
-                $q -> where('type', 'トップ');
-            }])
-            ->get();
-        return response()->json([
-            'data' => $shops,
-        ], 200);
+        //
     }
 
     /**
@@ -48,11 +38,11 @@ class ShopController extends Controller
      */
     public function show($id)
     {
-        $shop = Shop::with('images','reviews.user')
-        ->where('id',$id)
-        ->first();
+        $images = Image::where('shop_id', $id)
+        ->where('type', '<>', 'トップ')
+        ->get();
         return response()->json([
-            'data' => $shop
+            'data' => $images,
         ], 200);
     }
 

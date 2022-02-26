@@ -32,7 +32,7 @@ class Booking extends Model
     {
         $from_at = date('H:i', strtotime('-30 minute'. $time));
         $until_at = date('H:i',strtotime('+30 minute'. $time));
-        $query->where('id','!=',$id) //変更対象の予約を除外
+        $query->where('id','<>',$id) //変更対象の予約を除外
         ->where('date','=',$date)
         ->where('time','>=', $from_at)
         ->where('time','<=', $until_at)

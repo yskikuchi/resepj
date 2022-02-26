@@ -13,6 +13,7 @@ class AdminBookingController extends Controller
     {
         $shop = Shop::where('id', $request->shop_id)->first();
         $bookings = Booking::with('user:id,name,email,tel')
+        ->withTrashed()
         ->where('shop_id', $request->shop_id)
         ->orderBy('date','asc')
         ->orderBy('time','asc')

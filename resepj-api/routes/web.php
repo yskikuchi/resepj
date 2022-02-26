@@ -5,6 +5,8 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminShopController;
 use App\Http\Controllers\AdminBookingController;
+use App\Http\Controllers\AdminImageController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +20,7 @@ use App\Http\Controllers\AdminBookingController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('admin.dashboard');
 });
 
 Route::prefix('admin')->group(function(){
@@ -35,9 +37,13 @@ Route::prefix('admin')->group(function(){
     Route::middleware('auth:admin')->group(function(){
         Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard');
         Route::post('logout',[LoginController::class, 'destroy'])->name('admin.logout');
+        Route::get('shop', [AdminShopController::class, 'index']);
+        Route::post('shop', [AdminShopController::class, 'update']);
+        Route::get('booking', [AdminBookingController::class, 'index']);
+        Route::get('image', [AdminImageController::class, 'index']);
+        Route::post('image', [AdminImageController::class, 'store']);
+
     });
 });
 Route::post('/manager',[AdminController::class, 'store']);
-Route::get('/admin/shop', [AdminShopController::class, 'index']);
-Route::post('/admin/shop', [AdminShopController::class, 'update']);
-Route::get('/admin/booking', [AdminBookingController::class, 'index']);
+

@@ -11,6 +11,7 @@
         <span>&#035;{{shop.area}}</span>
         <span>&#035;{{shop.genre}}</span>
       </div>
+      <NuxtLink :to="{path:'/photo/' + shop.id}" replace>→店舗写真を見る</NuxtLink>
       <p class="shop-intro">{{shop.detail}}</p>
     </div>
     <div class="booking-form">
@@ -164,6 +165,7 @@ export default {
   .shop-intro{
     font-size: 1em;
     line-height: 1.5rem;
+    margin-top:10px;
   }
   .booking-form{
     width:40%;

@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             ShopSeeder::class,
             ImageSeeder::class,
             AdminSeeder::class,
-            ReviewSeeder::class
+            ReviewSeeder::class,
+            BookingSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
     }

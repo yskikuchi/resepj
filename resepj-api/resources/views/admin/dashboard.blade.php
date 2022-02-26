@@ -115,6 +115,22 @@
       </select>
       <button>予約一覧へ</button>
       </form>
+
+    <h3>●お店の画像の追加</h3>
+      <form method="GET" action="/admin/image">
+      <select name="shop_id">
+        @foreach($shops as $shop)
+          @can('isAdmin')
+            <option value="{{$shop->id}}">{{$shop->id}}.{{$shop->name}}</option>
+          @else
+            @if(Auth::user()->shop->id == $shop->id)
+              <option value="{{$shop->id}}">{{$shop->id}}.{{$shop->name}}</option>
+            @endif
+          @endcan
+        @endforeach
+      </select>
+      <button>店舗ページへ</button>
+      </form>
   </div>
 </div>
 
