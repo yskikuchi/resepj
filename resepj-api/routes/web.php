@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminShopController;
 use App\Http\Controllers\AdminBookingController;
 use App\Http\Controllers\AdminImageController;
+use App\Http\Controllers\AdminMailController;
 
 
 /*
@@ -38,11 +39,13 @@ Route::prefix('admin')->group(function(){
         Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard');
         Route::post('logout',[LoginController::class, 'destroy'])->name('admin.logout');
         Route::get('shop', [AdminShopController::class, 'index']);
-        Route::post('shop', [AdminShopController::class, 'update']);
+        Route::post('shop', [AdminShopController::class, 'create'])->name('admin.shop.create');
+        Route::put('shop', [AdminShopController::class, 'update'])->name('admin.shop.update');
         Route::get('booking', [AdminBookingController::class, 'index']);
         Route::get('image', [AdminImageController::class, 'index']);
         Route::post('image', [AdminImageController::class, 'store']);
-
+        Route::get('mail/{userId}', [AdminMailController::class, 'index']);
+        Route::post('mail', [AdminMailController::class, 'send']);
     });
 });
 Route::post('/manager',[AdminController::class, 'store']);

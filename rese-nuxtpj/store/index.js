@@ -4,17 +4,19 @@ export const state = () => ({
 })
 
 export const getters = {
-  getCount: state => (id) => {
-    const result = state.favorites.count.find(e => e.post_id == id);
-    return result;
-  },
-  getFavData: state => (postId, userId) => {
-    const checkFavorite = state.favorites.data.find(e => e.post_id == postId && e.user_id == userId);
-    return checkFavorite;
-  },
   getCurrentShop: state => (id) => {
     const currentShop = state.shops.find(e => e.id == id);
     return currentShop;
+  },
+  getAreaList: state => {
+    const areaList = state.shops.map(e => e.area);
+    const formatAreaList = new Set(areaList);
+    return formatAreaList;
+  },
+  getGenreList: state => {
+    const genreList = state.shops.map(e => e.genre);
+    const formatGenreList = new Set(genreList);
+    return formatGenreList;
   },
   getValidBookings: state => {
     const today = new Date();

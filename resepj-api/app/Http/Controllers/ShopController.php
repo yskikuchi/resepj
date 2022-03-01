@@ -17,7 +17,8 @@ class ShopController extends Controller
     public function index()
     {
         $id = Auth::id();
-        $shops = Shop::with(['favorites' => function($q) use($id){
+        $shops = Shop::where('name', '<>', '新規店舗')
+            ->with(['favorites' => function($q) use($id){
                 $q -> where('user_id',$id);
             }])
             ->with(['images' => function($q){

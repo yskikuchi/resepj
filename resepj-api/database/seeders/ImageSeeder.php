@@ -19,121 +19,139 @@ class ImageSeeder extends Seeder
         $param = [
             'shop_id' => $shops[0],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg',
+            'path' => 'storage/images/sushi.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[1],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/yakiniku.jpg',
+            'path' => 'storage/images/yakiniku.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[2],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/izakaya.jpg',
+            'path' => 'storage/images/izakaya.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[3],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/italian.jpg',
+            'path' => 'storage/images/italian.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[4],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/ramen.jpg',
+            'path' => 'storage/images/ramen.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[5],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/yakiniku.jpg',
+            'path' => 'storage/images/yakiniku.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[6],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/italian.jpg',
+            'path' => 'storage/images/italian.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[7],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/ramen.jpg',
+            'path' => 'storage/images/ramen.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[8],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/izakaya.jpg',
+            'path' => 'storage/images/izakaya.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[9],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg',
+            'path' => 'storage/images/sushi.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[10],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/yakiniku.jpg',
+            'path' => 'storage/images/yakiniku.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[11],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/yakiniku.jpg',
+            'path' => 'storage/images/yakiniku.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[12],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/izakaya.jpg',
+            'path' => 'storage/images/izakaya.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[13],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg',
+            'path' => 'storage/images/sushi.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[14],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/ramen.jpg',
+            'path' => 'storage/images/ramen.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[15],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/izakaya.jpg',
+            'path' => 'storage/images/izakaya.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[16],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg',
+            'path' => 'storage/images/sushi.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[17],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/yakiniku.jpg',
+            'path' => 'storage/images/yakiniku.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[18],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/italian.jpg',
+            'path' => 'storage/images/italian.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[19],
             'type' => 'トップ',
-            'path' => 'https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg',
+            'path' => 'storage/images/sushi.jpeg',
+        ];
+        DB::table('images')->insert($param);
+        $param = [
+            'shop_id' => $shops[0],
+            'type' => '料理',
+            'path' => 'storage/images/sushi.jpeg',
+        ];
+        DB::table('images')->insert($param);
+        $param = [
+            'shop_id' => $shops[0],
+            'type' => '外観',
+            'path' => 'storage/images/exterior-sushi.jpeg',
+        ];
+        DB::table('images')->insert($param);
+        $param = [
+            'shop_id' => $shops[0],
+            'type' => '店内',
+            'path' => 'storage/images/interior-sushi.jpeg',
         ];
         DB::table('images')->insert($param);
     }

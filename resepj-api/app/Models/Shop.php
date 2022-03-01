@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\Auth;
 class Shop extends Model
 {
     use HasFactory;
+    protected $fillable =[
+        'name',
+        'genre',
+        'area',
+        'detail',
+        'number_of_seats',
+    ];
     public function images(){
         return $this -> hasMany(Image::class);
     }

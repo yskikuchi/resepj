@@ -18,11 +18,11 @@ class BookingSeeder extends Seeder
     {
         $shop_id = Shop::pluck('id')->first();
         $user_id = User::pluck('id')->first();
-        $today = date('Y-m-d');
+        $nextWeek = date('Y-m-d',strtotime('+1week'));
         Booking::create([
             'user_id' => $user_id,
             'shop_id' => $shop_id,
-            'date' => $today,
+            'date' => $nextWeek,
             'time' => '12:00',
             'number_of_people' => 5,
         ]);

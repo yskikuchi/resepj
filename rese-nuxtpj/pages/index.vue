@@ -1,19 +1,14 @@
 <template>
   <div>
     <div class="search-wrapper">
+      <button @click="clearSort" class="clear-btn">CLEAR</button>
       <select @change="changeArea" class="search-select" name="searchArea" v-model="selectedArea">
         <option value="All area">All area</option>
-        <option value="東京都">東京都</option>
-        <option value="大阪府">大阪府</option>
-        <option value="福岡県">福岡県</option>
+        <option v-for="area in $store.getters.getAreaList" :key="area" :value="area">{{area}}</option>
       </select>
       <select @change="changeGenre" class="search-select" name="searchGenre" v-model="selectedGenre">
         <option value="All genre">All genre</option>
-        <option value="ラーメン">ラーメン</option>
-        <option value="寿司">寿司</option>
-        <option value="焼肉">焼肉</option>
-        <option value="居酒屋">居酒屋</option>
-        <option value="イタリアン">イタリアン</option>
+        <option v-for="genre in $store.getters.getGenreList" :key="genre" :value="genre">{{genre}}</option>
       </select>
       <input @keyup="inputWord" class="search-input" type="text" placeholder="Search..." v-model="searchWord">
     </div>
@@ -28,20 +23,30 @@ export default {
   auth:false,
   data(){
     return{
-        width:23,
+        width:22,
         selectedArea:"All area",
         selectedGenre:"All genre",
         searchWord:"",
         selectedList:[],
     };
   },
-  async mounted(){
-    const data = await this.$store.dispatch('getShops');
-    for(let i = 0; i < this.$store.state.shops.length; i++){
-      this.selectedList.push(this.$store.state.shops[i].name);
-    }
+  mounted(){
+    this.showAllShops();
   },
   methods:{
+    async showAllShops(){
+      this.selectedList = [];
+      await this.$store.dispatch('getShops');
+      for(let i = 0; i < this.$store.state.shops.length; i++){
+        this.selectedList.push(this.$store.state.shops[i].name);
+      }
+    },
+      async clearSort(){
+        this.selectedArea = "All area";
+        this.selectedGenre = "All genre";
+        this.searchWord = "",
+        this.showAllShops();
+      },
       changeArea(){
         for(let i = 0; i < this.$store.state.shops.length; i++){
           const shopName = this.$store.state.shops[i].name;
@@ -200,6 +205,13 @@ export default {
     text-align:right;
     margin-bottom:40px;
   }
+  .clear-btn{
+    margin-right: 5px;
+    color:royalblue;
+    background-color: inherit;
+    border-color: rgb(139, 164, 241);
+    box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.3);
+  }
   .search-select, .search-input{
     height:40px;
     border:none;
@@ -215,7 +227,6 @@ export default {
   .card-wrapper{
     display:flex;
     flex-wrap:wrap;
-    justify-content: space-between;
   }
   @media screen and (max-width: 768px) {
     .search-select, .search-input{
@@ -224,5 +235,8 @@ export default {
     .search-select{
       margin-bottom:7px;
     }
+  .card-wrapper{
+    justify-content: space-between;
+  }
   }
 </style>

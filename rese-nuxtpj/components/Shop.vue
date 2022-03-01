@@ -1,6 +1,6 @@
 <template>
   <div class="card" :shop="shop" :width="width" :style="('width:' + width +'%')">
-    <img class="card-img" :src="shop.images[0].path" alt="#">
+    <img class="card-img" :src="shop.images[0].path|imagePathFormat($config.apiURL)" alt="#">
     <div class="card-content">
         <p class="card-name" >{{shop.name}}</p>
         <span class="card-tag">&#035;{{shop.area}}</span>
@@ -29,6 +29,11 @@ export default {
   data(){
     return{
       doneGood:0,
+    }
+  },
+  filters:{
+    imagePathFormat:function(path, apiUrl){
+      return apiUrl + '/' + path;
     }
   },
   methods:{
@@ -61,7 +66,7 @@ export default {
     overflow:hidden;
     background-color:white;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-    margin:10px 0px;
+    margin:10px;
     position:relative;
   }
   .card-content{
@@ -101,7 +106,7 @@ export default {
   }
     @media screen and (max-width: 768px) {
     .card{
-      width: 49%!important;
+      width: 48%!important;
       margin:5px 0;
     }
     .card-content{

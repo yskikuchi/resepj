@@ -22,7 +22,10 @@
             <label for="name">氏名</label>
           </td>
           <td>
-            <input name="name" type="text">
+            <input name="name" type="text" value="{{old('name')}}" required>
+              @error('name')
+              <p class="error">{{$message}}</p>
+              @enderror
           </td>
         </tr>
         <tr>
@@ -30,7 +33,10 @@
             <label for="email">メールアドレス</label>
           </td>
           <td>
-            <input name="email" type="email">
+            <input name="email" type="email" value="{{old('email')}}" required>
+              @error('email')
+              <p class="error">{{$message}}</p>
+              @enderror
           </td>
         </tr>
         <tr>
@@ -38,7 +44,10 @@
             <label for="password">パスワード</label>
           </td>
           <td>
-            <input name="password" type="password">
+            <input name="password" type="password" required>
+              @error('password')
+              <p class="error">{{$message}}</p>
+              @enderror
           </td>
         </tr>
         <tr>
@@ -47,6 +56,7 @@
           </td>
           <td>
             <select name="shop">
+              <option value="new-shop">新規店舗</option>
               @foreach($shops as $shop)
               <option value="{{$shop->id}}">{{$shop->id}}.{{$shop->name}}</option>
               @endforeach
@@ -175,5 +185,8 @@
   }
   .manager-list td{
     padding:5px 20px;
+  }
+  .error{
+    color:red;
   }
 </style>

@@ -31,6 +31,7 @@
       <td>{{$booking->user->name}}</td>
       <td>{{$booking->user->email}}</td>
       <td>{{$booking->user->tel}}</td>
+      <td><a href="/admin/mail/{{ $booking->user->id }}">予約者にメールする</a></td>
     </tr>
     @endforeach
   </table>
