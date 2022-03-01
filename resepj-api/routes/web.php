@@ -42,6 +42,7 @@ Route::prefix('admin')->group(function(){
         Route::post('shop', [AdminShopController::class, 'create'])->name('admin.shop.create');
         Route::put('shop', [AdminShopController::class, 'update'])->name('admin.shop.update');
         Route::get('booking', [AdminBookingController::class, 'index']);
+        Route::get('booking/{bookingId}', [AdminBookingController::class, 'show']);
         Route::get('image', [AdminImageController::class, 'index']);
         Route::post('image', [AdminImageController::class, 'store']);
         Route::get('mail/{userId}', [AdminMailController::class, 'index']);

@@ -22,11 +22,21 @@
           </tr>
         </table>
         <NuxtLink class="change-booking" :to="{path:'bookings/' + booking.id}">日時、人数を変更する</NuxtLink>
+        <button class="qr-btn" @click="toggleIsShowQR">QRコードを表示</button>
+        <div class="qrcode-wrapper" v-show="isShowQR">
+          <div class="qrcode-content">
+            <p>こちらのQRコードを従業員にお見せください</p>
+            <img :src="qrcode" alt="QRcode">
+            <button class="qr-close" @click="toggleIsShowQR">閉じる</button>
+          </div>
+        </div>
     </section>
   </div>
 </template>
 
 <script>
+const QRCode = require('qrcode');
+
 export default {
   props:{
     booking:{
@@ -36,10 +46,24 @@ export default {
       type:Number
     }
   },
+  data(){
+    return{
+      isShowQR:false,
+      qrcode:"",
+    }
+  },
   filters:{
     formatTime(time){
       return time.slice(0, -3);
     }
+  },
+  mounted(){
+    QRCode.toDataURL(this.$config.apiURL + '/admin/booking/' + this.booking.id, (e, url)=>{
+      if(e){
+        throw e
+      }
+      this.qrcode = url;
+    })
   },
   methods:{
     async cancelBooking(id, index){
@@ -47,7 +71,10 @@ export default {
         await this.$axios.delete('api/booking/' + id);
         await this.$store.dispatch('getMyBookings');
       }
-    }
+    },
+    toggleIsShowQR: function(){
+      this.isShowQR = !this.isShowQR;
+    },
   }
 }
 </script>
@@ -86,6 +113,32 @@ export default {
     display: inline-block;
     color: white;
     padding:10px;
+  }
+  .qr-btn{
+    background-color: inherit;
+    border:none;
+    color:white;
+    display: block;
+    font-size:15px;
+  }
+  .qrcode-wrapper{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      z-index:9;
+  }
+  .qrcode-content{
+    width:70%;
+    margin:0 auto;
+    color:black;
+    text-align: center;
+  }
+  .qr-close{
+    display: block;
+    margin:0 auto;
   }
   @media screen and (max-width: 768px) {
     .booking_card{

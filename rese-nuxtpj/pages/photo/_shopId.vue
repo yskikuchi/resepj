@@ -47,7 +47,6 @@ export default {
     this.exteriorImages = this.images.filter(e => e.type == '外観');
     this.interiorImages = this.images.filter(e => e.type == '店内');
     this.foodImages = this.images.filter(e => e.type == '料理');
-    console.log(this.apiUrl);
   },
   filters:{
     imagePathFormat:function(path, apiUrl){

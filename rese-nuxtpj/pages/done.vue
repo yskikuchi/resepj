@@ -1,6 +1,7 @@
 <template>
   <div class="done-wrapper">
     <p>ご予約ありがとうございます</p>
+    <p>ご来店の際にはマイページよりQRコードを表示し、従業員にお見せください。</p>
     <NuxtLink to="/">戻る</NuxtLink>
   </div>
 </template>

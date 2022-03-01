@@ -20,4 +20,12 @@ class AdminBookingController extends Controller
         ->get();
         return view('admin.booking', compact('shop','bookings'));
     }
+    public function show($bookingId)
+    {
+        $booking = Booking::where('id', $bookingId)
+        ->withTrashed()
+        ->with('user', 'shop')
+        ->first();
+        return view('admin.bookingConfirm', compact('booking'));
+    }
 }

@@ -46,7 +46,7 @@ export default {
   async mounted(){
     const resData = await this.$axios.get('/api/shops/' + this.$route.params.shopId);
     this.shop = resData.data.data;
-    this.image = this.shop.images[0].path;
+    this.image = this.$config.apiURL + '/' + this.shop.images[0].path;
     for(let i = 1; i <= 5 ;i++){
       let rate = i + '点';
       this.ratingList.push(rate);

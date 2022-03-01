@@ -60,8 +60,10 @@ class BookingController extends Controller
      */
     public function show($id)
     {
+        $user_id = Auth::id();
         $booking = Booking::with('shop')
         ->where('id',$id)
+        ->where('user_id', $user_id)
         ->first();
         return response()->json([
             'data' => $booking

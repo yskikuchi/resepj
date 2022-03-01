@@ -21,7 +21,7 @@
 export default {
   data(){
     return{
-      width:47,
+      width:45,
       shops:[],
     }
   },
