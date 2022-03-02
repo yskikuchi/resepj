@@ -14,7 +14,7 @@
   <div class="admin-menu_left">
     <h3>●店舗代表者を追加</h3>
     @can('isAdmin')
-    <form method="POST" action="/manager">
+    <form method="POST" action="/admin/manager">
     @csrf
       <table class="admin-dashboard_form">
         <tr>

@@ -15,7 +15,7 @@ class CreateAdminsTable extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
-            $table->string('name',20);
+            $table->string('name',30);
             $table->string('email',50)->unique();
             $table->tinyInteger('role')->default(2); //1:管理者、2:店舗代表者
             $table->foreignId('shop_id')->nullable()->constrained();

@@ -11,19 +11,19 @@
   <table class="admin-shop-info">
     <tr>
       <th><label for="name">店名</label></th>
-      <td><input name="name" type="text" value="{{$shop->name}}"></td>
+      <td><input name="name" type="text" value="{{$shop->name}}" required></td>
     </tr>
     <tr>
       <th><label for="genre">ジャンル</label></th>
       <td>
-        <input name="genre" type="text" value="{{$shop->genre}}">
+        <input name="genre" type="text" value="{{$shop->genre}}" required>
       </td>
     </tr>
     <tr>
       <th><label for="area">エリア</label></th>
       <td>
         <!-- <input name="area" type="text" value="{{$shop->area}}"> -->
-        <select name="area" value="{{$shop->genre}}">
+        <select name="area" value="{{$shop->genre}}" required>
           <option value="" selected>都道府県</option>
           <option value="北海道">北海道</option>
           <option value="青森県">青森県</option>
@@ -81,7 +81,7 @@
     </tr>
     <tr>
       <th><label for="number_of_seats">席数</label></th>
-      <td><input name="number_of_seats" type="text" value="{{$shop->number_of_seats}}"></td>
+      <td><input name="number_of_seats" type="text" value="{{$shop->number_of_seats}}" required></td>
     </tr>
     <tr>
       <th><label for="image">画像</label></th>
@@ -101,7 +101,7 @@
   <table class="admin-shop-info">
     <tr>
       <th><label for="name">店名</label></th>
-      <td><input name="name" type="text" value="{{$shop->name}}"></td>
+      <td><input name="name" type="text" value="{{$shop->name}}" required></td>
     </tr>
     <tr>
       <th><label for="detail">概要</label></th>
@@ -109,7 +109,7 @@
     </tr>
     <tr>
       <th><label for="number_of_seats">席数</label></th>
-      <td><input name="number_of_seats" type="text" value="{{$shop->number_of_seats}}"></td>
+      <td><input name="number_of_seats" type="text" value="{{$shop->number_of_seats}}" required></td>
     </tr>
     <tr>
       <th><label for="image">画像</label></th>

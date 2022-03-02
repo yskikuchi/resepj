@@ -15,6 +15,7 @@ class AdminShopController extends Controller
         $shop = Shop::where('id',$request->shop_id)->first();
         return view('admin.shop', compact('shop'));
     }
+
     public function create(Request $request)
     {
         Shop::where('id', $request->id)->update($request->except('_token','image'));
@@ -28,15 +29,18 @@ class AdminShopController extends Controller
         Image::create($data);
         return redirect()->route('admin.dashboard');
     }
+
     public function update(Request $request)
     {
         Shop::where('id', $request->id)->update($request->except('_method','_token','image'));
-        $path = Storage::putFile('public/images',$request->image);
-        $storage_path = str_replace('public', 'storage', $path);
-        $data = [
-            'path' => $storage_path,
-        ];
-        Image::where('shop_id',$request->id)->update($data);
+        if($request->image){
+            $path = Storage::putFile('public/images',$request->image);
+            $storage_path = str_replace('public', 'storage', $path);
+            $data = [
+                'path' => $storage_path,
+            ];
+            Image::where('shop_id',$request->id)->update($data);
+        }
         return redirect()->route('admin.dashboard');
     }
 }

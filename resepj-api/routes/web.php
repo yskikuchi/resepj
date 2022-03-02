@@ -37,6 +37,7 @@ Route::prefix('admin')->group(function(){
 
     Route::middleware('auth:admin')->group(function(){
         Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard');
+        Route::post('manager',[AdminController::class, 'store']);
         Route::post('logout',[LoginController::class, 'destroy'])->name('admin.logout');
         Route::get('shop', [AdminShopController::class, 'index']);
         Route::post('shop', [AdminShopController::class, 'create'])->name('admin.shop.create');
@@ -49,5 +50,5 @@ Route::prefix('admin')->group(function(){
         Route::post('mail', [AdminMailController::class, 'send']);
     });
 });
-Route::post('/manager',[AdminController::class, 'store']);
+
 
