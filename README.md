@@ -5,7 +5,7 @@ Rese（リーズ）
 Reseグループの飲食店予約サービスです。
 
 ## 機能一覧
-###　ユーザー
+### ユーザー
 * 会員登録・ログイン
 * 飲食店一覧を表示
   * ジャンル・エリア・店名で絞り込み
@@ -40,33 +40,33 @@ cd resepj
 ```
 ### 1. laravel
 ```
-cd resepj-api
-composer install
+$ cd resepj-api
+$ composer install
 $ cp .env.local.example .env
 
 $ php artisan key:generate
 ```
 
-データベースの設定後
+envファイルのデータベースを修正後
 ```
-php artisan migrate
-php artisan db:seed
+$ php artisan migrate
+$ php artisan db:seed
 ```
 
 ### 2. Nuxt
 ```
-cd rese-nuxtpj
-yarn add or npm install
+$ cd rese-nuxtpj
+$ yarn add
+
+$ cp .env.local.example .env
 ```
-rese-nuxtpj直下に.envを作成し、以下を記述
-```
-API_URL=http://localhost:8000
-```
+
 
 ### 4.laravel & Nuxtを立ち上げる
 ```
 php artisan serve
-yarn dev or npm run dev
+yarn dev
 ```
+
 
 
