@@ -19,23 +19,14 @@ class BookingController extends Controller
     public function index()
     {
         $user_id = Auth::id();
-        // $today = date('Y-m-d');
-        // $time = date('H:i:s',strtotime('1hour'));
         $bookings = Booking::with('shop:id,name')
         ->where('user_id', $user_id)
-        // ->where(function($query) use($today,$time){
-        //     $query->where([
-        //         ['date', '=', $today],
-        //         ['time', '>', $time],
-        //         ])
-        //         ->orWhere('date', '>', $today);
-        // })
         ->orderBy('date','asc')
         ->orderBy('time','asc')
         ->get();
         return response()->json([
             'data' => $bookings
-        ],201 );
+        ],200 );
     }
 
     /**
@@ -65,9 +56,15 @@ class BookingController extends Controller
         ->where('id',$id)
         ->where('user_id', $user_id)
         ->first();
-        return response()->json([
-            'data' => $booking
-        ], 200);
+        if($booking){
+            return response()->json([
+                'data' => $booking
+            ], 200);
+        }else{
+            return response()->json([
+                'message' => 'Not found',
+            ], 404);
+        }
     }
 
     /**

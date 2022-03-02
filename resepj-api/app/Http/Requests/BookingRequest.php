@@ -28,7 +28,7 @@ class BookingRequest extends FormRequest
      */
     public function rules()
     {
-        $user_id = Auth::id();
+        // $user_id = Auth::id();
         $startDate = date('Y-m-d', strtotime('1day'));
         $endDate = date('Y-m-d', strtotime('1month'));
         return [
@@ -37,7 +37,7 @@ class BookingRequest extends FormRequest
             //同じ時間帯（前後３０分）に別の予約が入っていないかどうかを確認
             'hasOtherBooking' =>[
                 new BookingRule(
-                    $user_id,
+                    $this->user_id,
                     $this->date,
                     $this->time,
                     $this->booking_id,
