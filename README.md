@@ -57,7 +57,7 @@ $ php artisan db:seed
 ```
 $ cd ../
 $ cd rese-nuxtpj
-$ yarn add
+$ yarn install
 
 $ cp .env.local.example .env
 ```
