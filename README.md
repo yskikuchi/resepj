@@ -55,6 +55,7 @@ $ php artisan db:seed
 
 ### 2. Nuxt
 ```
+$ cd ../
 $ cd rese-nuxtpj
 $ yarn add
 
