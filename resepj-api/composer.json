@@ -26,13 +26,7 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        },
-        "exclude-from-classmap": [
-            "vendor\\laravel\\fortify\\src\\Http\\Controllers\\RegisteredUserController.php"
-        ],
-        "files":[
-            "app\\Actions\\fortify\\Http\\Controllers\\RegisteredUserController.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
