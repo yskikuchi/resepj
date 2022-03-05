@@ -62,8 +62,8 @@ export default {
         });
         this.$router.push('/thanks');
       }catch(e){
-        if (e.response.status == 400){
-        console.log(e.response.data.errors);
+        if (e.response.data.message == 'The given data was invalid.'){
+        console.log(e.response);
         const resData = e.response.data;
         Object.keys(resData.errors).forEach((key) =>{
           this.errors[key] = resData.errors[key][0];
