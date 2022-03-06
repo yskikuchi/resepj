@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Pipeline;
 use App\Actions\Admin\AttemptToAuthenticate;
 use App\Responses\AdminLoginResponse;
-use App\Responses\AdminLogoutnResponse;
+use App\Responses\AdminLogoutResponse;
 use Laravel\Fortify\Actions\EnsureLoginIsNotThrottled;
 use Laravel\Fortify\Actions\PrepareAuthenticatedSession;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
@@ -106,7 +106,7 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/admin/login');
+        return redirect()->route('admin.login');
         // return app(AdminLogoutResponse::class);
     }
 }

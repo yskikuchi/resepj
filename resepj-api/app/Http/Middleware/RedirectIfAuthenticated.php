@@ -20,7 +20,7 @@ class RedirectIfAuthenticated
     public function handle(Request $request, Closure $next, ...$guards)
     {
         $guards = empty($guards) ? [null] : $guards;
-        $path = $request->server('PATH_INFO');
+        $path = $request->server('REQUEST_URI');
         foreach ($guards as $guard) {
             if(Auth::guard('admin')->check()){
                 if($path != '/admin/logout'){

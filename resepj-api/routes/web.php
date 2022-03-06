@@ -34,11 +34,11 @@ Route::prefix('admin')->group(function(){
     });
     Route::get('login',[LoginController::class, 'create'])->name('admin.login');
     Route::post('login',[LoginController::class,'store']);
+    Route::post('logout',[LoginController::class, 'destroy'])->name('admin.logout');
 
     Route::middleware('auth:admin')->group(function(){
         Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard');
         Route::post('manager',[AdminController::class, 'store']);
-        Route::post('logout',[LoginController::class, 'destroy'])->name('admin.logout');
         Route::get('shop', [AdminShopController::class, 'index']);
         Route::post('shop', [AdminShopController::class, 'create'])->name('admin.shop.create');
         Route::put('shop', [AdminShopController::class, 'update'])->name('admin.shop.update');

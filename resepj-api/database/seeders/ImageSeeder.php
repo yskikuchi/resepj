@@ -19,139 +19,139 @@ class ImageSeeder extends Seeder
         $param = [
             'shop_id' => $shops[0],
             'type' => 'トップ',
-            'path' => 'storage/images/sushi.jpeg',
+            'path' => 'sushi.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[1],
             'type' => 'トップ',
-            'path' => 'storage/images/yakiniku.jpeg',
+            'path' => 'yakiniku.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[2],
             'type' => 'トップ',
-            'path' => 'storage/images/izakaya.jpeg',
+            'path' => 'izakaya.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[3],
             'type' => 'トップ',
-            'path' => 'storage/images/italian.jpeg',
+            'path' => 'italian.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[4],
             'type' => 'トップ',
-            'path' => 'storage/images/ramen.jpeg',
+            'path' => 'ramen.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[5],
             'type' => 'トップ',
-            'path' => 'storage/images/yakiniku.jpeg',
+            'path' => 'yakiniku.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[6],
             'type' => 'トップ',
-            'path' => 'storage/images/italian.jpeg',
+            'path' => 'italian.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[7],
             'type' => 'トップ',
-            'path' => 'storage/images/ramen.jpeg',
+            'path' => 'ramen.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[8],
             'type' => 'トップ',
-            'path' => 'storage/images/izakaya.jpeg',
+            'path' => 'izakaya.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[9],
             'type' => 'トップ',
-            'path' => 'storage/images/sushi.jpeg',
+            'path' => 'sushi.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[10],
             'type' => 'トップ',
-            'path' => 'storage/images/yakiniku.jpeg',
+            'path' => 'yakiniku.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[11],
             'type' => 'トップ',
-            'path' => 'storage/images/yakiniku.jpeg',
+            'path' => 'yakiniku.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[12],
             'type' => 'トップ',
-            'path' => 'storage/images/izakaya.jpeg',
+            'path' => 'izakaya.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[13],
             'type' => 'トップ',
-            'path' => 'storage/images/sushi.jpeg',
+            'path' => 'sushi.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[14],
             'type' => 'トップ',
-            'path' => 'storage/images/ramen.jpeg',
+            'path' => 'ramen.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[15],
             'type' => 'トップ',
-            'path' => 'storage/images/izakaya.jpeg',
+            'path' => 'izakaya.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[16],
             'type' => 'トップ',
-            'path' => 'storage/images/sushi.jpeg',
+            'path' => 'sushi.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[17],
             'type' => 'トップ',
-            'path' => 'storage/images/yakiniku.jpeg',
+            'path' => 'yakiniku.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[18],
             'type' => 'トップ',
-            'path' => 'storage/images/italian.jpeg',
+            'path' => 'italian.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[19],
             'type' => 'トップ',
-            'path' => 'storage/images/sushi.jpeg',
+            'path' => 'sushi.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[0],
             'type' => '料理',
-            'path' => 'storage/images/sushi.jpeg',
+            'path' => 'sushi_food.jpg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[0],
             'type' => '外観',
-            'path' => 'storage/images/exterior-sushi.jpeg',
+            'path' => 'exterior-sushi.jpeg',
         ];
         DB::table('images')->insert($param);
         $param = [
             'shop_id' => $shops[0],
             'type' => '店内',
-            'path' => 'storage/images/interior-sushi.jpeg',
+            'path' => 'interior-sushi.jpeg',
         ];
         DB::table('images')->insert($param);
     }

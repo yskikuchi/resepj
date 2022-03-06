@@ -5,7 +5,8 @@
       <h3>外観</h3>
       <div v-if="exteriorImages.length != 0" class="shop-image-content">
         <div class="shop-image-card" v-for="image in exteriorImages" :key="image.id">
-          <img :src="image.path|imagePathFormat($config.apiURL)">
+          <img v-if="$config.nodeEnv == 'development'" :src="image.path|imagePathFormat($config.apiURL)">
+          <img v-else :src="image.path|imagePathFormatProduction($config.apiURL)">
         </div>
       </div>
       <div v-else>この店舗の画像はまだありません</div>
@@ -50,7 +51,10 @@ export default {
   },
   filters:{
     imagePathFormat:function(path, apiUrl){
-      return apiUrl + '/' + path;
+      return apiUrl + '/storage/images/' + path;
+    },
+    imagePathFormatProduction:function(path, apiUrl){
+      return apiUrl + '/storage/images/' + path;
     }
   }
 }

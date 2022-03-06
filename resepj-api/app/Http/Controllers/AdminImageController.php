@@ -16,14 +16,29 @@ class AdminImageController extends Controller
     }
     public function store(Request $request)
     {
-        $path = Storage::putFile('public/images',$request->image);
-        $storage_path = str_replace('public', 'storage', $path);
-        $data = [
-            'shop_id' => $request->shop_id,
-            'type' => $request->type,
-            'path' => $storage_path,
-        ];
-        Image::create($data);
-        return redirect()->route('admin.dashboard');
+        if(app()->isLocal()){
+            $fullPath = Storage::putFile('public/images',$request->image);
+            $storageName = str_replace('public/images/', '', $fullPath);
+            $data = [
+                'shop_id' => $request->shop_id,
+                'type' => $request->type,
+                'path' => $storageName,
+            ];
+            Image::create($data);
+            $formatPath = str_replace('public','storage', $fullPath);
+            $path = config('app.url').'/'.$formatPath;
+            return view('admin.imagePosted', compact('path'));
+        }else{
+            $file = Storage::disk('s3')->putFile('public',$request->image);
+            $path = Storage::disk('s3')->url($file);
+            $storageName = str_replace('public/', '', $file);
+            $data = [
+                'shop_id' => $request->shop_id,
+                'type' => $request->type,
+                'path' => $storageName,
+            ];
+            Image::create($data);
+            return view('admin.imagePosted', compact('path'));
+        }
     }
 }

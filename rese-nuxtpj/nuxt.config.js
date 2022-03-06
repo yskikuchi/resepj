@@ -68,5 +68,7 @@ export default {
   publicRuntimeConfig: {
     baseURL: process.env.BASE_URL || 'http://locahost:3000',
     apiURL: process.env.API_URL || 'http://localhost:8000',
+    nodeEnv: process.env.NODE_ENV,
+    awsURL: process.env.AWS_URL,
   }
 }

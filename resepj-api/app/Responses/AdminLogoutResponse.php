@@ -15,7 +15,6 @@ class AdminLogoutResponse implements LogoutResponseContract
      */
     public function toResponse($request)
     {
-      dd($request);
         return $request->wantsJson()
                     ? new JsonResponse('', 204)
                     : redirect('/');

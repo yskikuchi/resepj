@@ -6,7 +6,7 @@
         <span class="back-btn"><a @click="$router.back()">&lt;</a></span>
         {{shop.name}}
       </p>
-      <img class="shop-detail_img" :src="image">
+      <img v-if="$config.nodeEnv == 'development'" class="card-img" :src="imagePath|imagePathFormat($config.apiURL)" alt="#">
       <div class="shop-tag">
         <span>&#035;{{shop.area}}</span>
         <span>&#035;{{shop.genre}}</span>
@@ -66,7 +66,7 @@ export default {
         remainingSeats:"",
       },
       shop:"",
-      image:"",
+      imagePath:"",
       reviews:"",
       timeList:[],
       numberList:[],
@@ -77,10 +77,11 @@ export default {
       number:"1人",
     }
   },
-  async created(){
+  async mounted(){
     const resData = await this.$axios.get('/api/shops/' + this.$route.params.shopId);
     this.shop = resData.data.data;
-    this.image = this.$config.apiURL + '/' + this.shop.images[0].path;
+    const topImage = this.shop.images.filter(e => e.type == 'トップ');
+    this.imagePath = topImage[0].path;
     this.reviews = this.shop.reviews;
 
     //日付の選択肢を翌日〜１ヶ月後に制限
@@ -131,7 +132,7 @@ export default {
   },
   filters:{
     imagePathFormat:function(path, apiUrl){
-      return apiUrl + '/' + path;
+      return apiUrl + '/storage/images/' + path;
     }
   }
 }
