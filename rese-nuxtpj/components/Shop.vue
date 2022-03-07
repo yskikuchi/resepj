@@ -36,7 +36,7 @@ export default {
     imagePathFormat:function(path, apiUrl){
       return apiUrl + '/storage/images/' + path;
     },
-    imagePathFormat:function(path, awsUrl){
+    imagePathFormatProduction:function(path, awsUrl){
       return awsUrl + '/' + path;
     }
   },

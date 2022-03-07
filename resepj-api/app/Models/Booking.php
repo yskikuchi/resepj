@@ -14,9 +14,12 @@ class Booking extends Model
     protected $fillable =[
         'user_id',
         'shop_id',
+        'menu_id',
         'date',
         'time',
+        'checked',
         'number_of_people',
+        'payment_intent_id',
         'canceled_at',
         'deleted_at',
     ];
@@ -27,6 +30,9 @@ class Booking extends Model
     }
     public function shop(){
         return $this -> belongsTo(Shop::class);
+    }
+    public function menu(){
+        return $this -> belongsTo(Menu::class);
     }
     public function scopeWhereHasBooking($query, $date, $time, $id)
     {

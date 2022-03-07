@@ -49,7 +49,7 @@ class ShopController extends Controller
      */
     public function show($id)
     {
-        $shop = Shop::with('images','reviews.user')
+        $shop = Shop::with('images','reviews.user','menus')
         ->where('id',$id)
         ->first();
         return response()->json([

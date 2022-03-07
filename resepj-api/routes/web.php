@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminShopController;
 use App\Http\Controllers\AdminBookingController;
 use App\Http\Controllers\AdminImageController;
 use App\Http\Controllers\AdminMailController;
+use App\Http\Controllers\PaymentController;
 
 
 /*
@@ -23,6 +24,7 @@ use App\Http\Controllers\AdminMailController;
 Route::get('/', function () {
     return redirect()->route('admin.dashboard');
 });
+Route::post('/stripe/webhook', [PaymentController::class, 'webhook']);
 
 Route::prefix('admin')->group(function(){
     Route::get('/', function () {

@@ -42,8 +42,8 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/auth-next'
-
+    '@nuxtjs/auth-next',
+    'nuxt-stripe-module',
   ],
   auth: {
     strategies: {
@@ -70,5 +70,8 @@ export default {
     apiURL: process.env.API_URL || 'http://localhost:8000',
     nodeEnv: process.env.NODE_ENV,
     awsURL: process.env.AWS_URL,
+    stripe: {
+      publishableKey: process.env.STRIPE_PUBLIC_KEY,
+    }
   }
 }

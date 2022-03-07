@@ -7,6 +7,7 @@
         {{shop.name}}
       </p>
       <img v-if="$config.nodeEnv == 'development'" class="card-img" :src="imagePath|imagePathFormat($config.apiURL)" alt="#">
+      <img v-else class="card-img" :src="imagePath|imagePathFormatProduction($config.awsURL)" alt="#">
       <div class="shop-tag">
         <span>&#035;{{shop.area}}</span>
         <span>&#035;{{shop.genre}}</span>
@@ -20,11 +21,16 @@
         <p class="error">{{errors.date}}</p>
         <p class="error">{{errors.hasOtherBooking}}</p>
         <p class="error">{{errors.remainingSeats}}</p>
+        <p class="error">{{errors.menu_id}}</p>
         <select name="time" v-model="time" id="time">
           <option v-for="time in timeList" :key="time" :value="time">{{time}}</option>
         </select>
         <select name="number_of_people" v-model="number" id="number">
           <option v-for="number in numberList" :key="number" :value="number">{{number}}</option>
+        </select>
+        <select name="menu" v-model="menu" id="menu">
+          <option selected>メニューを選んでください</option>
+          <option v-for="menu in shop.menus" :key="menu.id" :value="menu.name">{{menu.name}}</option>
         </select>
         <table class="booking-table">
           <tr>
@@ -43,8 +49,15 @@
             <th>Number</th>
             <td>{{number}}</td>
           </tr>
+          <tr>
+            <th>Menu</th>
+            <td>{{menu}}</td>
+          </tr>
         </table>
-        <button class="booking-btn" @click="book">予約する</button>
+        <div class="btn-block">
+          <button class="checkout-btn" @click="checkout">事前決済はこちら</button>
+          <button class="booking-btn" @click="book">予約する</button>
+        </div>
     </div>
   </div>
   <div class="review-wrapper">
@@ -62,6 +75,7 @@ export default {
       errors:{
         date:"",
         number:"",
+        menu_id:"",
         hasOtherBooking:"",
         remainingSeats:"",
       },
@@ -75,6 +89,9 @@ export default {
       date:"",
       time:"11:00",
       number:"1人",
+      menu:"メニューを選んでください",
+      selectedMenuId:"",
+      sendData:{},
     }
   },
   async mounted(){
@@ -92,7 +109,7 @@ export default {
     this.fromDate = tomorrow.toISOString().slice(0,10);
     this.untilDate = oneMonthLater.toISOString().slice(0,10);
 
-    //予約時間、人数の選択肢を表示
+    //予約時間、人数を表示
     for(let i = 11; i <= 21 ;i++){
       let time1 = i + ':00';
       this.timeList.push(time1);
@@ -105,28 +122,66 @@ export default {
     }
   },
   methods:{
-    async book(){
-      try{
+    setSendData(){
         Object.keys(this.errors).forEach((key) =>{
           this.errors[key] = "";
         })
-        const sendData={
+        if(this.menu != "メニューを選んでください"){
+          const selectedMenu = this.shop.menus.find(e => e.name == this.menu);
+          this.selectedMenuId = selectedMenu.id;
+        }
+        this.sendData={
           user_id:this.$auth.user.id,
           shop_id:this.shop.id,
+          menu_id:this.selectedMenuId,
           date:this.date,
           time:this.time,
           number_of_people:this.number.slice(0, -1),
         };
+    },
+    async book(){
+      try{
+        this.setSendData();
         if(confirm('この内容で予約してよろしいですか？')){
-          await this.$axios.post("/api/booking",sendData);
+          await this.$axios.post("/api/booking",this.sendData);
           this.$router.push('/done');
         }
       }catch(e){
-        console.log(e.response.data.errors);
+        // console.log(e.response);
         const resData = e.response.data;
         Object.keys(resData.errors).forEach((key) =>{
           this.errors[key] = resData.errors[key][0];
         })
+      }
+    },
+    async checkout(){
+      try{
+        this.setSendData();
+        if(confirm('この内容で予約してよろしいですか？　予約完了後、事前決済ページへ移動します')){
+          const res = await this.$axios.post("/api/booking",this.sendData);
+          const bookingId = res.data.data.id;
+          this.sendData['booking_id'] = bookingId;
+          await this.redirectToCheckout(this.sendData);
+      }
+      }catch(e){
+        // console.log(e.response);
+        const resData = e.response.data;
+        Object.keys(resData.errors).forEach((key) =>{
+          this.errors[key] = resData.errors[key][0];
+        })
+      }
+    },
+    async redirectToCheckout(bookingInfo){
+      try{
+        const res = await this.$axios.post('/api/pay',bookingInfo);
+        const sessionId = res.data.data.id;
+        await this.$stripe.redirectToCheckout({
+          sessionId : sessionId
+        }).then((result) => {
+          console.log(result);
+        })
+      }catch(e){
+        console.log(e);
       }
     }
   },
@@ -211,15 +266,28 @@ export default {
     width:30%;
     text-align: left;
   }
+  .btn-block{
+    display: flex;
+    height: 50px;
+}
+  .checkout-btn{
+    display: inline-block;
+    width: 50%;
+    height:100%;
+    font-size:16px;
+    border:none;
+    background-color:rgb(255, 166, 0);
+    color:white;
+    cursor:pointer;
+  }
   .booking-btn{
-    width: 100%;
-    height:50px;
+    display: inline-block;
+    width: 50%;
+    height:100%;
+    font-size:16px;
     border:none;
     background-color:blue;
     color:white;
-    position:absolute;
-    bottom:0;
-    left:0;
     cursor:pointer;
   }
   .error{
@@ -259,11 +327,8 @@ export default {
       width:90%;
     }
     .booking-table{
-    width:80%;
-    margin:30px auto 50px;
-    }
-    .booking-btn{
-    height:30px;
+    width:100%;
+    margin:30px auto;
     }
   }
 </style>

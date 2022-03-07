@@ -7,16 +7,24 @@
         <select name="time" id="time" v-model="form.time">
           <option v-for="time in timeList" :key="time" :value="time">{{time}}</option>
         </select>
-        <select name="number_of_people" id="number" v-model="form.number">
+        <select name="number_of_people" id="number" v-model="form.number" required>
           <option v-for="number in numberList" :key="number" :value="number">{{number}}</option>
         </select>
+        <select name="menu" v-model="form.menu" id="menu" required>
+          <option selected>メニューを選んでください</option>
+          <option v-for="menu in shop.menus" :key="menu.id" :value="menu.name">{{menu.name}}</option>
+        </select>
+        <p class="error">{{errors.date}}</p>
+        <p class="error">{{errors.time}}</p>
+        <p class="error">{{errors.number_of_people}}</p>
         <p class="error">{{errors.hasOtherBooking}}</p>
         <p class="error">{{errors.remainingSeats}}</p>
+        <p class="error">{{errors.menu_id}}</p>
         <p class="current-booking">現在の予約日時</p>
         <table class="current-booking-status">
           <tr>
             <th>Shop</th>
-            <td>{{shop}}</td>
+            <td>{{shop.name}}</td>
           </tr>
           <tr>
             <th>Date</th>
@@ -30,6 +38,10 @@
             <th>Number</th>
             <td>{{bookedNumber}}人</td>
           </tr>
+          <tr>
+            <th>Menu</th>
+            <td>{{bookedMenuName}}</td>
+          </tr>
         </table>
         <button class="booking-change-btn" @click="changeBooking">予約を変更する</button>
     </div>
@@ -42,7 +54,8 @@ export default {
     return{
       errors:{
         date:"",
-        number:"",
+        time:"",
+        number_of_people:"",
         hasOtherBooking:"",
         remainingSeats:"",
       },
@@ -50,6 +63,7 @@ export default {
         date:"",
         time:"",
         number:"",
+        menu:"メニューを選んでください",
       },
       timeList:[],
       numberList:[],
@@ -60,16 +74,18 @@ export default {
       bookedDate:"",
       bookedTime:"",
       bookedNumber:"",
+      bookedMenuName:"",
+      selectedMenuId:"",
     }
   },
   async mounted(){
     const resData = await this.$axios.get('/api/booking/' + this.$route.params.bookingId);
-    const bookingData = resData.data.data;
-    this.booking = bookingData;
-    this.shop = this.booking.shop.name;
-    this.bookedDate = bookingData.date;
-    this.bookedTime = bookingData.time;
-    this.bookedNumber = bookingData.number_of_people;
+    this.booking= resData.data.data;
+    this.shop = this.booking.shop;
+    this.bookedDate = this.booking.date;
+    this.bookedTime = this.booking.time;
+    this.bookedNumber = this.booking.number_of_people;
+    this.bookedMenuName = this.booking.menu.name;
 
     //日付の選択肢を翌日〜１ヶ月後に制限
     const tomorrow = new Date();
@@ -103,18 +119,23 @@ export default {
           Object.keys(this.errors).forEach((key) =>{
             this.errors[key] = "";
           })
+        if(this.form.menu != "メニューを選んでください"){
+          const selectedMenu = this.shop.menus.find(e => e.name == this.form.menu);
+          this.selectedMenuId = selectedMenu.id;
+        }
           const sendData={
             shop_id:this.booking.shop.id,
             date:this.form.date,
             time:this.form.time,
             number_of_people:this.form.number.slice(0, -1),
             booking_id:this.booking.id,
+            menu_id:this.selectedMenuId,
           };
           await this.$axios.put("/api/booking/" + this.$route.params.bookingId, sendData);
           this.$router.push('/mypage');
         }
       }catch(e){
-        console.log(e.response.data.errors);
+        // console.log(e.response.data.errors);
         const resData = e.response.data;
         Object.keys(resData.errors).forEach((key) =>{
           this.errors[key] = resData.errors[key][0];

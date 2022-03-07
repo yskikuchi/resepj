@@ -33,7 +33,9 @@ class BookingRequest extends FormRequest
         $endDate = date('Y-m-d', strtotime('1month'));
         return [
             'date'=> 'required|date|after_or_equal:'.$startDate.'|before_or_equal:'.$endDate,
+            'time' => 'required',
             'number_of_people' => 'required|max:100',
+            'menu_id' => 'required',
             //同じ時間帯（前後３０分）に別の予約が入っていないかどうかを確認
             'hasOtherBooking' =>[
                 new BookingRule(
@@ -64,8 +66,10 @@ class BookingRequest extends FormRequest
     public function messages()
     {
         return [
+            'time.required' => '時間を入力してください',
             'date.required' => '日付を入力してください',
             'number_of_people.required' => '予約人数を入力してください',
+            'menu_id.required' => 'メニューを選んでください'
         ];
     }
 }

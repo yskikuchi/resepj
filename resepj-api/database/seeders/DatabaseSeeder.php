@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             ImageSeeder::class,
             AdminSeeder::class,
             ReviewSeeder::class,
+            MenuSeeder::class,
             BookingSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();

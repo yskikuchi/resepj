@@ -1,7 +1,9 @@
 <template>
   <div>
     <section class="booking_card" :booking="booking" :index="index">
-      <span>予約{{index+1}}</span>
+      <span class="booking_card_ttl">予約{{index+1}}</span>
+      <span v-if="booking.checked == 1" class="checked">(支払い済)</span>
+      <span v-else><button class="checkout" @click="checkout">事前決済をする</button></span>
       <img @click="cancelBooking(booking.id, index+1)" class="close-btn" src="~assets/images/close.png">
         <table>
           <tr>
@@ -19,6 +21,10 @@
           <tr>
             <th>Number</th>
             <td>{{booking.number_of_people}}人</td>
+          </tr>
+          <tr>
+            <th>Menu</th>
+            <td>{{booking.menu.name}}</td>
           </tr>
         </table>
         <NuxtLink class="change-booking" :to="{path:'bookings/' + booking.id}">日時、人数を変更する</NuxtLink>
@@ -50,7 +56,14 @@ export default {
     return{
       isShowQR:false,
       qrcode:"",
-    }
+      sendData:{
+          user_id:this.$auth.user.id,
+          shop_id:this.booking.shop.id,
+          menu_id:this.booking.menu.id,
+          booking_id:this.booking.id,
+          number_of_people:this.booking.number_of_people,
+      }
+    };
   },
   filters:{
     formatTime(time){
@@ -75,6 +88,22 @@ export default {
     toggleIsShowQR: function(){
       this.isShowQR = !this.isShowQR;
     },
+    async checkout(){
+      try{
+        console.log(this.sendData);
+        if(confirm('事前決済ページへ移動しますか？')){
+          const res = await this.$axios.post('/api/pay',this.sendData);
+          const sessionId = res.data.data.id;
+          await this.$stripe.redirectToCheckout({
+          sessionId : sessionId
+        }).then((result) => {
+          console.log(result);
+        })
+      }
+      }catch(e){
+        console.log(e);
+      }
+    },
   }
 }
 </script>
@@ -89,14 +118,29 @@ export default {
     margin-bottom:20px;
     position:relative;
   }
-  .booking_card span{
+  .booking_card_ttl{
     font-size:20px;
     line-height:1.5em;
+  }
+  .checked{
+    margin-left: 10px;
+    background: rgb(255, 104, 104);
+    padding:3px 6px;
+    border-radius: 5px;
+    font-size: 15px;
+  }
+  .checkout{
+    margin-left: 10px;
+    background: rgb(248, 166, 14);
+    border:none;
+    border-radius: 5px;
+    color:white;
   }
   .booking_card table{
     color:white;
     font-size:1em;
     padding:10px;
+    margin:5px;
   }
   .booking_card th{
     text-align:left;
@@ -104,9 +148,9 @@ export default {
   }
 
   .close-btn{
-    height:15%;
+    height:13%;
     position:absolute;
-    top:10%;
+    top:7%;
     right:5%;
   }
   .change-booking{

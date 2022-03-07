@@ -19,7 +19,7 @@ class BookingController extends Controller
     public function index()
     {
         $user_id = Auth::id();
-        $bookings = Booking::with('shop:id,name')
+        $bookings = Booking::with('shop:id,name','menu')
         ->where('user_id', $user_id)
         ->orderBy('date','asc')
         ->orderBy('time','asc')
@@ -52,7 +52,7 @@ class BookingController extends Controller
     public function show($id)
     {
         $user_id = Auth::id();
-        $booking = Booking::with('shop')
+        $booking = Booking::with('shop.menus','menu')
         ->where('id',$id)
         ->where('user_id', $user_id)
         ->first();
