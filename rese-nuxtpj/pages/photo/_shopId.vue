@@ -13,7 +13,8 @@
       <h3>店内</h3>
       <div v-if="interiorImages.length != 0" class="shop-image-content">
         <div class="shop-image-card" v-for="image in interiorImages" :key="image.id">
-          <img :src="image.path|imagePathFormat($config.apiURL)">
+          <img v-if="$config.nodeEnv == 'development'" :src="image.path|imagePathFormat($config.apiURL)">
+          <img v-else :src="image.path|imagePathFormatProduction($config.apiURL)">
         </div>
       </div>
       <div v-else>この店舗の画像はまだありません</div>
@@ -21,7 +22,8 @@
         <h3>料理</h3>
         <div v-if="foodImages.length != 0" class="shop-image-content">
           <div class="shop-image-card" v-for="image in foodImages" :key="image.id">
-            <img :src="image.path|imagePathFormat($config.apiURL)">
+          <img v-if="$config.nodeEnv == 'development'" :src="image.path|imagePathFormat($config.apiURL)">
+          <img v-else :src="image.path|imagePathFormatProduction($config.apiURL)">
           </div>
         </div>
         <div v-else>この店舗の画像はまだありません</div>
@@ -53,8 +55,8 @@ export default {
     imagePathFormat:function(path, apiUrl){
       return apiUrl + '/storage/images/' + path;
     },
-    imagePathFormatProduction:function(path, apiUrl){
-      return apiUrl + '/storage/images/' + path;
+    imagePathFormatProduction:function(path, awsUrl){
+      return awsUrl + '/' + path;
     }
   }
 }

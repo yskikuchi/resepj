@@ -1,7 +1,7 @@
 <template>
   <div class="card" :shop="shop" :width="width" :style="('width:' + width +'%')">
     <img v-if="$config.nodeEnv == 'development'" class="card-img" :src="shop.images[0].path|imagePathFormat($config.apiURL)" alt="#">
-    <img v-else :src="shop.images[0].path|imagePathFormatProduction($config.awsURL)" alt="">
+    <img v-else class="card-img" :src="shop.images[0].path|imagePathFormatProduction($config.awsURL)" alt="">
     <div class="card-content">
         <p class="card-name" >{{shop.name}}</p>
         <span class="card-tag">&#035;{{shop.area}}</span>
