@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
             'name' => 'testuser',
             'email' => 'test@sample.com',
             'tel' => '09000000000',
+            'email_verified_at' => '2022-03-01',
             'password' => Hash::make('password'),
         ]);
     }

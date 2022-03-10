@@ -55,6 +55,7 @@ export default {
       errors:{
         date:"",
         time:"",
+        menu_id:"",
         number_of_people:"",
         hasOtherBooking:"",
         remainingSeats:"",

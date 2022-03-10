@@ -188,6 +188,9 @@ export default {
   filters:{
     imagePathFormat:function(path, apiUrl){
       return apiUrl + '/storage/images/' + path;
+    },
+    imagePathFormatProduction:function(path, awsUrl){
+      return awsUrl + '/' + path;
     }
   }
 }
