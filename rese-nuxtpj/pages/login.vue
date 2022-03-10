@@ -22,18 +22,24 @@ export default {
     return{
       form:{
         email:"",
-        password:""
+        password:"",
       },
+      processing:false,
     }
   },
   methods:{
     async login(){
+      if(this.processing){
+        return;
+      }
       try{
+        this.processing = true;
         await this.$auth.loginWith("laravelSanctum",{
           data:this.form,
         });
       }catch(e){
         alert('メールアドレスまたはパスワードに誤りがあります')
+        this.processing = false;
       }
     }
   }

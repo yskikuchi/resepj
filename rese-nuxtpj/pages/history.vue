@@ -1,7 +1,7 @@
 <template>
   <div class="booking_history">
+    <span class="back-btn"><a @click="$router.back()">&lt;</a></span>
     <h2>過去の予約</h2>
-    <span class="back-btn"><NuxtLink to="/mypage">&lt;</NuxtLink></span>
     <p class="history-no-exist" v-if="$store.getters.getPastBookings.length == 0"> 過去の予約はありません</p>
     <section class="booking_card" v-for="booking in $store.getters.getPastBookings" :key="booking.id">
         <table>
@@ -37,6 +37,16 @@ export default {
 }
 </script>
 <style scoped>
+  .back-btn{
+    display:inline-block;
+    text-align: center;
+    font-size: 25px;
+    width:30px;
+    height: 30px;
+    background-color:white;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+    margin-bottom: 10px;
+  }
   .booking_history h2{
     font-size:25px;
     margin-bottom:20px;

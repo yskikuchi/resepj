@@ -6,8 +6,8 @@
         <span class="back-btn"><a @click="$router.back()">&lt;</a></span>
         {{shop.name}}
       </p>
-      <img v-if="$config.nodeEnv == 'development'" class="card-img" :src="imagePath|imagePathFormat($config.apiURL)" alt="#">
-      <img v-else class="card-img" :src="imagePath|imagePathFormatProduction($config.awsURL)" alt="#">
+      <img v-if="$config.nodeEnv == 'development'" class="card-img" :src="imageUrl" alt="#">
+      <img v-else class="card-img" :src="imageUrl" alt="#">
       <div class="shop-tag">
         <span>&#035;{{shop.area}}</span>
         <span>&#035;{{shop.genre}}</span>
@@ -81,6 +81,7 @@ export default {
       },
       shop:"",
       imagePath:"",
+      imageUrl:"",
       reviews:"",
       timeList:[],
       numberList:[],
@@ -92,13 +93,19 @@ export default {
       menu:"メニューを選んでください",
       selectedMenuId:"",
       sendData:{},
+      processing:false,
     }
   },
-  async mounted(){
+  async created(){
     const resData = await this.$axios.get('/api/shops/' + this.$route.params.shopId);
     this.shop = resData.data.data;
     const topImage = this.shop.images.filter(e => e.type == 'トップ');
-    this.imagePath = topImage[0].path;
+    const path = topImage[0].path;
+    if(this.$config.nodeEnv == 'development'){
+      this.imageUrl = this.$config.apiURL + '/storage/images/' + path;
+    }else{
+      this.imageUrl = this.$config.awsURL + '/' + path;
+    }
     this.reviews = this.shop.reviews;
 
     //日付の選択肢を翌日〜１ヶ月後に制限
@@ -140,9 +147,13 @@ export default {
         };
     },
     async book(){
+      if(this.processing){
+        return;
+      }
       try{
         this.setSendData();
         if(confirm('この内容で予約してよろしいですか？')){
+          this.processing = true;
           await this.$axios.post("/api/booking",this.sendData);
           this.$router.push('/done');
         }
@@ -152,12 +163,17 @@ export default {
         Object.keys(resData.errors).forEach((key) =>{
           this.errors[key] = resData.errors[key][0];
         })
+        this.processing = false;
       }
     },
     async checkout(){
+      if(this.processing){
+        return;
+      }
       try{
         this.setSendData();
         if(confirm('この内容で予約してよろしいですか？　予約完了後、事前決済ページへ移動します')){
+          this.processing = true;
           const res = await this.$axios.post("/api/booking",this.sendData);
           const bookingId = res.data.data.id;
           this.sendData['booking_id'] = bookingId;
@@ -169,6 +185,7 @@ export default {
         Object.keys(resData.errors).forEach((key) =>{
           this.errors[key] = resData.errors[key][0];
         })
+        this.processing = false;
       }
     },
     async redirectToCheckout(bookingInfo){
@@ -181,22 +198,16 @@ export default {
           console.log(result);
         })
       }catch(e){
+        this.processing = false;
         console.log(e);
       }
     }
   },
-  filters:{
-    imagePathFormat:function(path, apiUrl){
-      return apiUrl + '/storage/images/' + path;
-    },
-    imagePathFormatProduction:function(path, awsUrl){
-      return awsUrl + '/' + path;
-    }
-  }
+
 }
 </script>
 
-<style>
+<style scoped>
   .detail-wrapper{
     display:flex;
     justify-content:space-around;
@@ -210,7 +221,6 @@ export default {
     width:20px;
     background-color:white;
     box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
-
   }
   .back-btn a{
     text-decoration:none;

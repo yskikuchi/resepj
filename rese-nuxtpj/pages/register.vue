@@ -43,13 +43,18 @@ export default {
         email:"",
         tel:"",
         password:"",
-      }
+      },
+      processing:false,
     }
   },
   methods:{
     async register(){
+      if(this.processing){
+        return;
+      }
       try{
-          Object.keys(this.errors).forEach((key) =>{
+        this.processing = true;
+        Object.keys(this.errors).forEach((key) =>{
           this.errors[key] = "";
         })
         await this.$axios.get("sanctum/csrf-cookie");
@@ -60,6 +65,7 @@ export default {
             password:this.form.password,
             },
         });
+        this.processing = false;
         this.$router.push('/thanks');
       }catch(e){
         if (e.response.data.message == 'The given data was invalid.'){
@@ -67,6 +73,7 @@ export default {
         Object.keys(resData.errors).forEach((key) =>{
           this.errors[key] = resData.errors[key][0];
         })
+        this.processing = false;
         }
       }
     }

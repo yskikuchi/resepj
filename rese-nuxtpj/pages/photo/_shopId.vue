@@ -1,5 +1,6 @@
 <template>
   <div class="shop-image-container">
+    <span class="back-btn"><a @click="$router.back()">&lt;</a></span>
     <h2>写真一覧</h2>
     <div class="shop-image-main">
       <h3>外観</h3>
@@ -46,7 +47,6 @@ export default {
   async mounted(){
     const resData = await this.$axios.get('/api/images/' + this.$route.params.shopId);
     this.images = resData.data.data;
-    console.log(this.images);
     this.exteriorImages = this.images.filter(e => e.type == '外観');
     this.interiorImages = this.images.filter(e => e.type == '店内');
     this.foodImages = this.images.filter(e => e.type == '料理');
@@ -63,6 +63,16 @@ export default {
 </script>
 
 <style scoped>
+  .back-btn{
+    display:inline-block;
+    text-align: center;
+    font-size: 25px;
+    width:30px;
+    height: 30px;
+    background-color:white;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+    margin-bottom: 10px;
+  }
   .shop-image-container h2{
     font-size:25px;
   }

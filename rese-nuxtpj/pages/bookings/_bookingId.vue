@@ -77,6 +77,7 @@ export default {
       bookedNumber:"",
       bookedMenuName:"",
       selectedMenuId:"",
+      processing:false,
     }
   },
   async mounted(){
@@ -115,8 +116,12 @@ export default {
   },
   methods:{
     async changeBooking(){
+      if(this.processing){
+        return;
+      }
       try{
         if(confirm('この内容で変更してよろしいですか？')){
+          this.processing = true;
           Object.keys(this.errors).forEach((key) =>{
             this.errors[key] = "";
           })
@@ -133,6 +138,7 @@ export default {
             menu_id:this.selectedMenuId,
           };
           await this.$axios.put("/api/booking/" + this.$route.params.bookingId, sendData);
+          this.processing = false;
           this.$router.push('/mypage');
         }
       }catch(e){
@@ -141,6 +147,7 @@ export default {
         Object.keys(resData.errors).forEach((key) =>{
           this.errors[key] = resData.errors[key][0];
         })
+        this.processing = false;
       }
     }
   }

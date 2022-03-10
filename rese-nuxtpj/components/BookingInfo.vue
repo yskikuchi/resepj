@@ -62,7 +62,8 @@ export default {
           menu_id:this.booking.menu.id,
           booking_id:this.booking.id,
           number_of_people:this.booking.number_of_people,
-      }
+      },
+      processing:false,
     };
   },
   filters:{
@@ -80,18 +81,26 @@ export default {
   },
   methods:{
     async cancelBooking(id, index){
+      if(this.processing){
+        return;
+      }
       if(confirm('予約'+index +'を削除してよろしいですか？')){
+        this.processing = true;
         await this.$axios.delete('api/booking/' + id);
         await this.$store.dispatch('getMyBookings');
+        this.processing = false;
       }
     },
     toggleIsShowQR: function(){
       this.isShowQR = !this.isShowQR;
     },
     async checkout(){
+      if(this.processing){
+        return;
+      }
       try{
-        console.log(this.sendData);
         if(confirm('事前決済ページへ移動しますか？')){
+          this.processing = true;
           const res = await this.$axios.post('/api/pay',this.sendData);
           const sessionId = res.data.data.id;
           await this.$stripe.redirectToCheckout({
@@ -102,6 +111,7 @@ export default {
       }
       }catch(e){
         console.log(e);
+        this.processing = false;
       }
     },
   }

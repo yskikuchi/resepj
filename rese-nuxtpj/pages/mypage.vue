@@ -3,6 +3,7 @@
     <p class="user-name">{{$auth.user.name}}さん</p>
     <div class="mypage_wrapper">
       <div class="booking-list">
+      <span class="back-btn"><a @click="$router.back()">&lt;</a></span>
         <h2>予約状況</h2>
         <NuxtLink class="past-booking" to="/history">( &gt;過去の予約はこちら )</NuxtLink>
         <BookingInfo v-for="(booking, index) in $store.getters.getValidBookings" :key="booking.id" :booking="booking" :index="index"></BookingInfo>
@@ -52,6 +53,16 @@ export default {
     position:absolute;
     top:5%;
     left:50%;
+  }
+  .back-btn{
+    display:inline-block;
+    text-align: center;
+    font-size: 25px;
+    width:30px;
+    height: 30px;
+    background-color:white;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+    margin-bottom: 10px;
   }
   .past-booking{
     margin-bottom: 10px;

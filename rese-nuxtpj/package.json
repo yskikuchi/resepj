@@ -2,9 +2,7 @@
   "name": "rese-nuxtpj",
   "version": "1.0.0",
   "private": true,
-  "engines": {
-    "yarn": "1.22.15"
-  },
+
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
